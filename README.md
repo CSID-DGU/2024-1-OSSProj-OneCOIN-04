@@ -1,11 +1,9 @@
 Class : OSSProj
-
 Name : Choe Haegwan
+Date : 27 Mar, 2024
+Practice : Git
 
 일자 : 2024. 03. 27.
-
-
-
 
 # Team OneCOIN 
 # OSSProj
