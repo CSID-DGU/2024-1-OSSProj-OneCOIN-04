@@ -126,7 +126,7 @@ const Subheader = styled.div`
   top: 30px;
   button {
     margin-left: 40px;
-    color: #9eb0ea;
+    color: gray;
     border: none;
     padding: 8px 15px;
     border-radius: 50px;
@@ -157,6 +157,7 @@ const ButtonGroup = styled.div`
 `;
 const StyledIcon = styled.button`
   border: none;
+  color: #FD9F28;
   background: none;
   font-size: 35px;
   margin: 0 5px;

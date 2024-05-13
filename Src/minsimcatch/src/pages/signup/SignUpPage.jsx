@@ -106,7 +106,7 @@ const SignUpPage = () => {
         <StyledIcon onClick={() => navigate(-1)}>
           <GoChevronLeft />
         </StyledIcon>
-        <Title>Goalajuma</Title>
+        <Title>민심캐치</Title>
       </Header>
       <Group>
         <InputContainer>
@@ -191,7 +191,7 @@ const SignUpPage = () => {
       </PolicyGroup>
       <ButtonGroup>
         <Button
-          color="#9EB0EA"
+          color="#FD9F28"
           onClick={handleSignUp}
           disabled={
             isValid.isName &&
@@ -250,6 +250,7 @@ const ButtonGroup = styled.div`
 `;
 const StyledIcon = styled.button`
   border: none;
+  color: #FD9F28;
   background: none;
   font-size: 35px;
   margin: 0 5px;
@@ -257,7 +258,7 @@ const StyledIcon = styled.button`
 const Title = styled.div`
   font-size: 32px;
   font-weight: bold;
-  color: #9eb0ea;
+  color: #FD9F28;
   position: relative;
   bottom: 3px;
   left: 25px;
@@ -266,7 +267,7 @@ const StyledButton = styled.button`
   border-radius: 50px;
   border: 1px solid transparent;
   font-size: 13px;
-  background-color: #9eb0ea;
+  background-color: #A9A9A9;
   padding: 0.6em;
   font-weight: 500;
   color: #fff;
@@ -276,7 +277,7 @@ const StyledButton = styled.button`
   left: 90px;
   cursor: pointer;
   &:hover {
-    background-color: #8c9ccf;
+    background-color: #FD9F28;
   }
 `;
 const PolicyGroup = styled.div`
