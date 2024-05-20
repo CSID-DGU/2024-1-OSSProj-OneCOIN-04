@@ -42,11 +42,20 @@ const ModalTemplate = ({ detailData, click, what }) => {
   }, [detailData, participate]);
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [commentModalVisible, setCommentModalVisible] = useState(false);
+
   const shareCloseModal = () => {
     setModalVisible(false);
   };
   const shareOpenModal = () => {
     setModalVisible(true);
+  };
+
+  const closeCommentModal = () => {
+    setCommentModalVisible(false);
+  };
+  const openCommentModal = () => {
+    setCommentModalVisible(true);
   };
 
   const [totalCountState, setTotalCountState] = useState(totalCount);
@@ -96,6 +105,7 @@ const ModalTemplate = ({ detailData, click, what }) => {
 
           <VoteBottom
             onClickShare={shareOpenModal}
+            onClick={openCommentModal}
             modal={true}
             id={id}
           ></VoteBottom>
@@ -109,10 +119,17 @@ const ModalTemplate = ({ detailData, click, what }) => {
               <ShareForm />
             </Modal>
           )}
+          {commentModalVisible && (
+            <Modal
+              visible={commentModalVisible}
+              closable={true}
+              maskClosable={true}
+              onClose={closeCommentModal}
+            >
+              <ChatForm surveyId={id} onClose={closeCommentModal} />
+            </Modal>
+          )}
         </Container>
-        <Chat>
-          <ChatForm participate={participateState || isOwner} />
-        </Chat>
       </ModalMainContainer>
     </div>
   );
@@ -133,12 +150,6 @@ const Container = styled.div`
   border-bottom: 2px solid #e2e2e2;
   margin-top: 1.5rem;
   padding-bottom: 1rem;
-`;
-const Chat = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding-bottom: 30px;
 `;
 
 export default ModalTemplate;
