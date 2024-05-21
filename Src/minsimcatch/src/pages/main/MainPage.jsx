@@ -1,3 +1,4 @@
+// MainPage.jsx
 import React, { useEffect, useState } from 'react';
 import { getDatabase, ref, onValue } from "firebase/database";
 import useLogin from '@/hooks/useLogin';
@@ -34,9 +35,10 @@ const MainPage = () => {
             id,
             ...survey,
             options: optionsArray,
-            totalCount // 총 votes 수 추가
+            totalCount, // 총 votes 수 추가
+            userId: survey.userId // 투표 작성자 ID 추가
           };
-        });
+        }).filter(survey => survey.active !== "complete"); // 종료된 투표 필터링
         setSurveys(surveysArray);
       } else {
         setError('No surveys available.');
@@ -83,4 +85,5 @@ const ContentWrapper = styled.div`
   padding-bottom: 80px; // Footer 높이만큼 패딩 추가
   min-height: calc(100vh - 60px); // Footer와 헤더를 뺀 높이 계산
   box-sizing: border-box; // Padding과 border를 포함한 box-sizing
+
 `;
