@@ -2,11 +2,13 @@ import { useEffect, useState } from 'react';
 import { useRecoilState } from "recoil";
 import { isLoginInState } from "@/utils/AuthAtom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { getDatabase, ref, onValue } from "firebase/database";
 import { refreshTokenInquire, removeToken } from "@/services/login";
 
 const useLogin = () => {
   const [isLoginIn, setIsLoginIn] = useRecoilState(isLoginInState);
   const [uid, setUid] = useState(null);
+  const [nickname, setNickname] = useState(null);
   const auth = getAuth();
 
   const accessToken = localStorage.getItem("token");
@@ -20,9 +22,15 @@ const useLogin = () => {
       if (user) {
         setIsLoginIn(true);
         setUid(user.uid);
+        const db = getDatabase();
+        const nicknameRef = ref(db, `users/${user.uid}/nickname`);
+        onValue(nicknameRef, (snapshot) => {
+          setNickname(snapshot.val());
+        });
       } else {
         setIsLoginIn(false);
         setUid(null);
+        setNickname(null);
       }
     });
 
@@ -42,7 +50,7 @@ const useLogin = () => {
     }
   }, [accessToken, expiredTime, refreshExpiredTime, currentTime]);
 
-  return { isLoginIn, uid };
+  return { isLoginIn, uid, nickname };
 };
 
 export default useLogin;
