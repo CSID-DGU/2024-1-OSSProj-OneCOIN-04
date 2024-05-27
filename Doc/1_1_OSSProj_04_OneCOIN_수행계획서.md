@@ -167,3 +167,6 @@ SW등록 |        |
 
 * 모바일 시제품은` 앱스토어` 또는 `구글플레이어`에 등록한다.
 
+<hr>
+
+- [메인페이지로 돌아가기](https://github.com/CSID-DGU/2024-1-OSSProj-OneCOIN-04)
