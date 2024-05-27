@@ -1,10 +1,10 @@
+import React, { useEffect, useState } from "react";
+import { getDatabase, ref, onValue } from "firebase/database";
 import Icon from "../Icon";
 import styled from "styled-components";
 import { HiOutlineChatBubbleOvalLeft } from "react-icons/hi2";
 import { FaShare } from "react-icons/fa";
 import PropTypes from "prop-types";
-import { commentCountInquire } from "@/services/main";
-import { useQuery } from "@tanstack/react-query";
 
 /**
  * @param {object} props
@@ -15,20 +15,20 @@ import { useQuery } from "@tanstack/react-query";
  */
 
 const VoteBottom = ({ onClick, onClickShare, modal, id }) => {
-  const { data, error, isLoading } = useQuery({
-    queryKey: ["comments", id],
-    queryFn: () => commentCountInquire(id),
-    enabled: !!id,
-  });
+  const [commentCount, setCommentCount] = useState(0);
 
-  // 데이터 로딩 상태 확인 및 에러 핸들링
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
+  useEffect(() => {
+    const db = getDatabase();
+    const commentsRef = ref(db, `surveys/${id}/comments`);
 
-  if (error) {
-    return <div>Error loading comments</div>;
-  }
+    const unsubscribe = onValue(commentsRef, (snapshot) => {
+      const comments = snapshot.val();
+      const count = comments ? Object.keys(comments).length : 0;
+      setCommentCount(count);
+    });
+
+    return () => unsubscribe();
+  }, [id]);
 
   return (
     <VoteButtonStyle>
@@ -36,7 +36,7 @@ const VoteBottom = ({ onClick, onClickShare, modal, id }) => {
         <Icon reverse={true} color="#676767" size="20px">
           <HiOutlineChatBubbleOvalLeft />
         </Icon>
-        <p>댓글({data?.count || 0})</p> {/* 수정된 부분 */}
+        <p>댓글({commentCount})</p>
       </div>
       <Icon color="#676767" size="20px" onClick={onClickShare} modal={modal}>
         <FaShare />
