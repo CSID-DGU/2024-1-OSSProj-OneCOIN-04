@@ -55,13 +55,26 @@
 
 ## 최종 결과물✅
 
-
+## 개발 환경
+- OS: MacOS, Windows
+- Editor: VS Code
+- Language: JavaScript
+- Collaboration Tool: Notion, Github, Slack, Figma
 ## 사용한 기술 스택 🛠️
 ### Frontend
 <img src="https://img.shields.io/badge/react -61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/recoil-3578E5?style=for-the-badge&logo=recoil&logoColor=white"> <img src="https://img.shields.io/badge/reactrouter-CA4245?style=for-the-badge&logo=reactrouter&logoColor=white"> <img src="https://img.shields.io/badge/vite-646CFF?style=for-the-badge&logo=vite&logoColor=black"> <img src="https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=html5&logoColor=white"> <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
    
 ### Backend
 <img src="https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=white">
+
+## GitHub 협업 규칙
+- 🗂️ feat: 새로운 기능 추가
+- 🔖 fix: 버그 수정
+- 📖 docs: 문서 수정
+- 💡 style: 코드 포맷팅, 세미콜론 누락 등 코드 변경이 없는 경우
+- ✂️ refactor: 코드 리팩토링 (기능 변경 없이 코드 구조 개선)
+- ⚙️ test: 테스트 추가 또는 기존 테스트 수정
+- 🧹 chore: 빌드 업무, 패키지 매니저 설정 등 기타 작업
 
 ## 나머지는 추후 업데이트 예정
 
