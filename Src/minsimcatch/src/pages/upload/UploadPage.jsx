@@ -2,7 +2,7 @@ import TextArea from "@/components/upload/TextArea";
 import Input from "@/components/upload/Input";
 import styled from "styled-components";
 import AddChoice from "@/components/upload/AddChoice";
-import CategoryNDeadLine from "@/components/upload/CategoryNDeadLine";
+import Category from "@/components/upload/Category"; // 파일 이름 변경
 import UploadButton from "@/components/upload/UploadButton";
 import { useEffect } from "react";
 import { uploadSelector } from "@/utils/UploadAtom";
@@ -17,7 +17,8 @@ import useLogin from "@/hooks/useLogin";
 const UploadPage = () => {
   const navigate = useNavigate();
   const resetList = useResetRecoilState(uploadSelector);
-  const isLogin = useLogin();
+  const { isLoginIn, loading } = useLogin();
+
   const resetClick = () => {
     Swal.fire({
       icon: "info",
@@ -30,16 +31,18 @@ const UploadPage = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         resetList();
+        window.location.reload(); // 페이지 새로고침
       }
     });
   };
+
   const preventRefresh = (e) => {
     e.preventDefault();
     e.returnValue = "";
   };
 
   useEffect(() => {
-    if (!isLogin) {
+    if (!loading && !isLoginIn) {
       Swal.fire({
         icon: "error",
         text: "로그인 후 글 작성이 가능합니다.",
@@ -47,14 +50,16 @@ const UploadPage = () => {
     }
 
     window.scrollTo({ top: 0, left: 0 });
-    (() => {
-      window.addEventListener("beforeunload", preventRefresh);
-    })();
+    window.addEventListener("beforeunload", preventRefresh);
 
     return () => {
       window.removeEventListener("beforeunload", preventRefresh);
     };
-  }, []);
+  }, [isLoginIn, loading, navigate]);
+
+  if (loading) {
+    return <div>로딩 중...</div>; // 로딩 중일 때 표시할 내용
+  }
 
   return (
     <div>
@@ -76,8 +81,8 @@ const UploadPage = () => {
           placeholder="상세 설명을 입력해주세요."
         />
         <AddChoice />
-        <CategoryNDeadLine />
-        <UploadButton></UploadButton>
+        <Category />
+        <UploadButton />
       </UploadContainer>
     </div>
   );
@@ -93,10 +98,8 @@ const UploadContainer = styled.div`
   .uploadHead > p {
     font-size: 12px;
     font-weight: 300;
-
     color: #dc6868;
     margin: 1rem 0 1rem 0;
-
     position: relative;
   }
   .uploadHead {
@@ -113,12 +116,10 @@ const UploadContainer = styled.div`
     border: none;
     border-radius: 5px;
     background-color: #ff9c9cb1;
-
     box-shadow: 1.5px 2px 2px rgb(126, 126, 126);
     display: flex;
     justify-content: center;
     align-items: center;
-
     font-size: 13px;
     color: #343434;
   }
@@ -126,4 +127,5 @@ const UploadContainer = styled.div`
     background-color: #e39b9b;
   }
 `;
+
 export default UploadPage;

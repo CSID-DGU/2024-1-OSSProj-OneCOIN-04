@@ -3,8 +3,8 @@ import { GoChevronDown } from "react-icons/go";
 import Icon from "../common/Icon";
 import { useRef, useState } from "react";
 import { useRecoilState } from "recoil";
-import { categoryState, timeLimitState } from "@/utils/UploadAtom";
-import { category, deadline } from "../upload/CategoryNDeadLine";
+import { categoryState } from "@/utils/UploadAtom";
+import { category } from "../upload/Category"; // 수정됨
 import PropTypes from "prop-types";
 
 /**
@@ -17,7 +17,6 @@ const Option = ({ datas, name }) => {
   const downRef = useRef();
   const [list, setList] = useState(false);
   const [categoryStates, setCategoryState] = useRecoilState(categoryState);
-  const [timeLimitStates, setTimeLimitState] = useRecoilState(timeLimitState);
 
   const selectCategory = () => {
     downRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -30,53 +29,34 @@ const Option = ({ datas, name }) => {
     }
   });
 
-  const deadLineList = deadline.filter((element) => {
-    if (element.value == timeLimitStates) {
-      return true;
-    }
-  });
-
   const onClickCategory = (e) => {
-    if (name == "카테고리") {
-      const { value } = e.target;
-      setCategoryState(value);
-      setList(!list);
-    } else {
-      const { value } = e.target;
-      setTimeLimitState(value);
-      setList(!list);
-    }
+    const { value } = e.target;
+    setCategoryState(value);
+    setList(!list);
   };
 
   return (
     <div ref={downRef}>
       <Select list={list}>
         <button onClick={selectCategory} className="selectBtn">
-          <p>
-            {name === "카테고리" ? categoryList[0].name : deadLineList[0].name}
-          </p>
+          <p>{categoryList[0].name}</p>
           <Icon size="20px" color="#585858">
             <GoChevronDown className="icon" />
           </Icon>
         </button>
         {datas.map((data, index) => {
           const className = () => {
-            if (name === "카테고리") {
-              return data.value == categoryStates ? "active" : "";
-            } else {
-              return data.value == timeLimitStates ? "active" : "";
-            }
+            return data.value == categoryStates ? "active" : "";
           };
 
           return (
-            <li key={name === "카테고리" ? index + 100 : index} className="Li">
+            <li key={index} className="Li">
               <button
                 onClick={(e) => onClickCategory(e)}
                 value={data.value}
                 list={list}
                 className={`optionLi ${className()}`}
               >
-                {" "}
                 {data.name}
               </button>
             </li>
