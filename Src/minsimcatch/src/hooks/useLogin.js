@@ -3,18 +3,13 @@ import { useRecoilState } from "recoil";
 import { isLoginInState } from "@/utils/AuthAtom";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { getDatabase, ref, onValue } from "firebase/database";
-import { refreshTokenInquire, removeToken } from "@/services/login";
 
 const useLogin = () => {
   const [isLoginIn, setIsLoginIn] = useRecoilState(isLoginInState);
   const [uid, setUid] = useState(null);
   const [nickname, setNickname] = useState(null);
+  const [loading, setLoading] = useState(true);
   const auth = getAuth();
-
-  const accessToken = localStorage.getItem("token");
-  const expiredTime = new Date(parseInt(localStorage.getItem("expiredTime"))); // accessToken 만료 시간
-  const refreshExpiredTime = new Date(parseInt(localStorage.getItem("refreshExpiredTime")));
-  const currentTime = new Date();
 
   useEffect(() => {
     // Firebase 인증 상태 감시
@@ -26,31 +21,20 @@ const useLogin = () => {
         const nicknameRef = ref(db, `users/${user.uid}/nickname`);
         onValue(nicknameRef, (snapshot) => {
           setNickname(snapshot.val());
+          setLoading(false); // 닉네임을 가져온 후 로딩 상태를 false로 설정
         });
       } else {
         setIsLoginIn(false);
         setUid(null);
         setNickname(null);
+        setLoading(false); // 사용자 정보가 없을 경우 로딩 상태를 false로 설정
       }
     });
 
     return () => unsubscribe(); // 구독 해제
   }, [auth]);
 
-  // 기존 토큰 기반 인증 상태 관리 로직 유지
-  useEffect(() => {
-    if (accessToken && expiredTime > currentTime) {
-      setIsLoginIn(true);
-    } else if (accessToken && expiredTime < currentTime && refreshExpiredTime > currentTime) {
-      setIsLoginIn(true);
-      refreshTokenInquire();
-    } else if (refreshExpiredTime < currentTime) {
-      setIsLoginIn(false);
-      removeToken();
-    }
-  }, [accessToken, expiredTime, refreshExpiredTime, currentTime]);
-
-  return { isLoginIn, uid, nickname };
+  return { isLoginIn, uid, nickname, loading };
 };
 
 export default useLogin;
