@@ -1,10 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import Img from './Img';
 import { GoX } from 'react-icons/go';
 import PropTypes from 'prop-types';
 
-const ChoiceOption = ({ id, data, inputOption, deleteOption, src }) => {
+const ChoiceOption = ({ id, data, inputOption, deleteOption }) => {
   return (
     <div>
       <Container>
@@ -16,9 +15,8 @@ const ChoiceOption = ({ id, data, inputOption, deleteOption, src }) => {
           onChange={(e) => inputOption(id, e.target.value)}
           placeholder={`선택지 ${id + 1}`}
           className="nameInput"
-          id={`nameInput-${id}`} // Ensure id is unique if needed for DOM manipulation
+          id={`nameInput-${id}`}
         />
-        <Img src={src} />
       </Container>
     </div>
   );
@@ -29,7 +27,6 @@ ChoiceOption.propTypes = {
   data: PropTypes.object.isRequired,
   inputOption: PropTypes.func.isRequired,
   deleteOption: PropTypes.func.isRequired,
-  src: PropTypes.string.isRequired,
 };
 
 const Container = styled.div`

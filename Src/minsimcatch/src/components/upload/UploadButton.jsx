@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from "styled-components";
 import { Palette } from "@/styles/Palette";
 import { useRecoilState, useResetRecoilState } from "recoil";
-import { uploadSelector } from "@/utils/UploadAtom";
+import { uploadSelector, titleState, contentState, categoryState, timeLimitState, optionState } from "@/utils/UploadAtom"; // 필요한 상태 import
 import { auth, database } from '@/firebase-config';
 import { getDatabase, ref, push, set, serverTimestamp } from 'firebase/database';
 import { useNavigate } from "react-router-dom";
@@ -12,7 +12,11 @@ import routes from "@/routes";
 const UploadButton = () => {
   const navigate = useNavigate();
   const [count, setCount] = useRecoilState(uploadSelector);
-  const resetList = useResetRecoilState(uploadSelector);
+  const resetTitle = useResetRecoilState(titleState);
+  const resetContent = useResetRecoilState(contentState);
+  const resetCategory = useResetRecoilState(categoryState);
+  const resetTimeLimit = useResetRecoilState(timeLimitState);
+  const resetOptions = useResetRecoilState(optionState);
   const [active, setActive] = useState(false);
 
   useEffect(() => {
@@ -51,6 +55,8 @@ const UploadButton = () => {
     const newSurveyData = {
       title: count.title,
       content: count.content,
+      category: count.category, // 카테고리 추가
+      timeLimit: count.timeLimit, // 마감기한 추가
       options: optionsObject, // 옵션 객체로 저장
       userId,
       timestamp: serverTimestamp()
@@ -58,14 +64,15 @@ const UploadButton = () => {
   
     await set(newSurveyRef, newSurveyData); // 전체 설문 데이터베이스에 저장
     Swal.fire("업로드 완료").then(() => {
-      resetList();
-      navigate(routes.home);
+      resetTitle();
+      resetContent();
+      resetCategory();
+      resetTimeLimit();
+      resetOptions();
+      navigate(routes.home); // 메인 페이지로 이동
     });
   };
   
-  
-  
-
   return (
     <>
       <UploadButtonStyle active={active}>

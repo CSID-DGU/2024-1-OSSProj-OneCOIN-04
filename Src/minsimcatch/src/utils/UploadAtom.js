@@ -1,5 +1,4 @@
 import { atom, selector } from "recoil";
-import { v4 as uuidv4 } from 'uuid'; // UUID 라이브러리를 불러옴
 
 export const titleState = atom({
   key: "titleState",
@@ -24,8 +23,8 @@ export const timeLimitState = atom({
 export const optionState = atom({
   key: "optionState",
   default: [
-    { id: uuidv4(), name: "", image: null },
-    { id: uuidv4(), name: "", image: null }
+    { id: 1, name: "", image: null },
+    { id: 2, name: "", image: null }
   ],
 });
 

@@ -226,3 +226,7 @@
 항목 | 세부내용 | 예상(달성)시기  
 ------|------------|-------
 Github 등록 |  https://github.com/CSID-DGU/2024-1-OSSProj-OneCOIN-04     | (~6/14)
+
+<hr>
+
+- [메인페이지로 돌아가기](https://github.com/CSID-DGU/2024-1-OSSProj-OneCOIN-04)
