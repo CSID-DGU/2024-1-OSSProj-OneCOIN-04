@@ -23,7 +23,7 @@
 - [범위 / 일정 관리](https://github.com/CSID-DGU/2024-1-OSSProj-OneCOIN-04/blob/main/Doc/4_1_OSSProj_04_OneCOIN_%EB%B2%94%EC%9C%84_%EC%9D%BC%EC%A0%95_%EC%9D%B4%EC%8A%88%EA%B4%80%EB%A6%AC.md)
 - [회의록](https://github.com/CSID-DGU/2024-1-OSSProj-OneCOIN-04/blob/main/Doc/4_2_OSSProj_04_OneCOIN_%ED%9A%8C%EC%9D%98%EB%A1%9D.md)
 - [제품의 구성, 배포 및 운영 관련 문서 자료](https://github.com/CSID-DGU/2024-1-OSSProj-OneCOIN-04/blob/main/Doc/4_3_OSSProj_04_OneCOIN_%EC%A0%9C%ED%92%88%EA%B5%AC%EC%84%B1%EB%B0%B0%ED%8F%AC%EC%9A%B4%EC%98%81%EC%9E%90%EB%A3%8C.md)
-- [이슈 및 범위 관리(Notion)](https://www.notion.so/OSSP_One_COIN-62b110d340974ae898a797309c388547?pvs=4)
+- [이슈 및 범위 관리(Notion)](https://clammy-feverfew-32d.notion.site/44d92fb9924f4a839955138a6b1ccc62?pvs=4)
 
 # 질문을 하면 답을 알려줄게 민심캐치! <img src="Doc/image/logo.png" alt="간트차트" width="50" height="50">
 
