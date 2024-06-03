@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import HomeLayout from "../home/HomeLayout";
-import routes from "@/routes";
 import PropTypes from "prop-types";
 import Modal from "../common/modal/Modal";
 import ChatForm from "../common/modal/ChatForm";
@@ -27,13 +26,12 @@ const HomeTemplate = ({ datas, error, modal }) => {
         datas &&
         datas.map((data) => (
           <HomeLayout
-            key={data.id} // 각 데이터의 고유 ID를 키 값으로 사용
+            key={data.id}
             data={data}
             what="home"
-            route={routes.home}
             modal={modal}
             onCommentClick={handleOpenModal}
-            disableVote={false} // 투표 버튼 활성화
+            disableVote={false}
           />
         ))
       )}
@@ -51,9 +49,9 @@ const HomeTemplate = ({ datas, error, modal }) => {
 };
 
 HomeTemplate.propTypes = {
-  datas: PropTypes.array.isRequired, // 데이터 배열
-  error: PropTypes.bool, // 에러 여부
-  modal: PropTypes.bool, // 모달 상태
+  datas: PropTypes.array.isRequired,
+  error: PropTypes.bool,
+  modal: PropTypes.bool,
 };
 
 export default HomeTemplate;
