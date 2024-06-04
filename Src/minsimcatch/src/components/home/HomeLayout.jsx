@@ -10,7 +10,7 @@ import { getDatabase, ref, update } from "firebase/database";
 import Swal from "sweetalert2";
 import useLogin from '@/hooks/useLogin';
 
-const HomeLayout = ({ data, what, route, modal, onCommentClick }) => {
+const HomeLayout = ({ data, what, route, modal, onCommentClick, disableVote }) => {
   const {
     totalCount,
     participate,
@@ -22,16 +22,11 @@ const HomeLayout = ({ data, what, route, modal, onCommentClick }) => {
     username,
     category,
     id,
-    userId, // 투표 작성자 ID
+    userId,
   } = data;
 
-  const { uid } = useLogin(); // 현재 사용자 ID 가져오기
-
-  const isOwner = uid === userId; // 현재 사용자가 투표 작성자인지 확인
-
-  console.log('Current user ID:', uid); // 사용자 ID 로그 출력
-  console.log('Survey owner ID:', userId); // 투표 작성자 ID 로그 출력
-  console.log('Is owner:', isOwner); // isOwner 값 로그 출력
+  const { uid } = useLogin();
+  const isOwner = disableVote ? false : uid === userId; // CompletePage에서 disableVote가 true이면 isOwner를 false로 설정
 
   const handleEndVote = () => {
     const db = getDatabase();
@@ -63,6 +58,11 @@ const HomeLayout = ({ data, what, route, modal, onCommentClick }) => {
     });
   };
 
+  const handleUpdate = () => {
+    // 여기에 데이터 업데이트 후 UI를 갱신하는 로직을 추가
+    // 예: setTotalCount(...); setOptions(...);
+  };
+
   return (
     <MainContainer>
       <Container>
@@ -88,7 +88,9 @@ const HomeLayout = ({ data, what, route, modal, onCommentClick }) => {
           active={active}
           options={options}
           voteId={id}
-          isLogIn={true} // Assume user is logged in for now
+          isLogIn={true}
+          disableVote={disableVote}
+          onUpdate={handleUpdate} // Update 함수 전달
         />
 
         <VoteBottom
@@ -108,6 +110,7 @@ HomeLayout.propTypes = {
   route: PropTypes.string,
   modal: PropTypes.bool,
   onCommentClick: PropTypes.func.isRequired,
+  disableVote: PropTypes.bool, // 추가된 속성
 };
 
 const Container = styled.div`

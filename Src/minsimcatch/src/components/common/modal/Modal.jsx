@@ -55,7 +55,7 @@ function Modal({
             <GoX
               className="modal-close"
               onClick={close}
-              style={{ position: "relative", bottom: "10px" }}
+              style={{ position: "absolute", top: "10px", right: "10px" }}
             />
           )}
           {children}
@@ -94,12 +94,14 @@ export const ModalInner = styled.div`
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
   background-color: #fff;
   border-radius: 10px;
-  width: 360px;
+  width: 80%;  // 변경: 반응형을 고려한 width
   max-width: 480px;
   top: 50%;
   transform: translateY(-50%);
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 20px; // 변경: padding 조정
+  max-height: 80vh; // 추가: 모달 최대 높이 설정
+  overflow-y: auto; // 추가: 내부 스크롤 설정
 `;
 
 export default Modal;

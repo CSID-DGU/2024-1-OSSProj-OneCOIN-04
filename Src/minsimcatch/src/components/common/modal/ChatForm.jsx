@@ -18,6 +18,9 @@ const ChatForm = ({ surveyId, onClose }) => {
   useEffect(() => {
     const commentsRef = ref(db, `surveys/${surveyId}/comments`);
     const participateRef = ref(db, `user_votes/${uid}/${surveyId}`);
+    const surveyRef = ref(db, `surveys/${surveyId}/userId`);
+
+    let isOwner = false;
 
     const unsubscribeComments = onValue(commentsRef, (snapshot) => {
       const data = snapshot.val();
@@ -36,14 +39,26 @@ const ChatForm = ({ surveyId, onClose }) => {
       setParticipate(!!snapshot.exists());
     });
 
+    const unsubscribeSurvey = onValue(surveyRef, (snapshot) => {
+      isOwner = snapshot.val() === uid;
+    });
+
     return () => {
       unsubscribeComments();
       unsubscribeParticipate();
+      unsubscribeSurvey();
     };
   }, [db, surveyId, uid]);
 
   const handleUpload = () => {
-    if (participate) {
+    const surveyRef = ref(db, `surveys/${surveyId}/userId`);
+    let isOwner = false;
+
+    onValue(surveyRef, (snapshot) => {
+      isOwner = snapshot.val() === uid;
+    });
+
+    if (participate || isOwner) {
       const commentsRef = ref(db, `surveys/${surveyId}/comments`);
       push(commentsRef, {
         content: write,
