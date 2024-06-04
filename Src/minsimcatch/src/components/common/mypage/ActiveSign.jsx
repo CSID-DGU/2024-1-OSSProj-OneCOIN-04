@@ -3,17 +3,17 @@ import { Palette } from "@/styles/Palette";
 import PropTypes from "prop-types";
 
 /**
- *@param {string} prop
- * @param {string} prop.active
+ * @param {object} props
+ * @param {string} props.active
  * @return {JSX.Element}
  */
 const ActiveSign = ({ active }) => {
   return (
     <>
-      {active === "continue" ? (
-        <Label className="continue">진행중</Label>
-      ) : (
+      {active === "complete" ? (
         <Label className="closed">종료</Label>
+      ) : (
+        <Label className="continued">진행중</Label>
       )}
     </>
   );
