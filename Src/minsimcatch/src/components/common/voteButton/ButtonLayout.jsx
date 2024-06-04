@@ -1,29 +1,36 @@
-import MainButton from "./MainButton";
-import styled from "styled-components";
+import React from "react";
 import PropTypes from "prop-types";
+import styled from "styled-components";
+import MainButton from "./MainButton";
 
 const ButtonLayout = ({
   options,
   participate,
   isOwner,
-  changeVotes,
+  active,
   voteId,
-  isLogIn
+  disableVote,
+  isLogIn,
+  onUpdate // 추가된 속성
 }) => {
+  const optionsArray = Array.isArray(options) ? options : Object.entries(options).map(([id, option]) => ({ id, ...option }));
+
   return (
     <Container>
-      {options.map(option => (
+      {optionsArray.map((option) => (
         <MainButton
           key={option.id}
           id={option.id}
           name={option.name}
           value={option.percentage}
-          number={option.votes} // 각 옵션의 votes 값을 전달
+          number={option.votes}
           participate={participate}
           isOwner={isOwner}
+          active={active}
           voteId={voteId}
-          changeVotes={changeVotes}
+          disableVote={disableVote}
           isLogIn={isLogIn}
+          onUpdate={onUpdate} // Update 함수 전달
         />
       ))}
     </Container>
@@ -31,12 +38,17 @@ const ButtonLayout = ({
 };
 
 ButtonLayout.propTypes = {
-  options: PropTypes.array.isRequired,
+  options: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object
+  ]).isRequired,
   participate: PropTypes.bool.isRequired,
   isOwner: PropTypes.bool.isRequired,
-  changeVotes: PropTypes.func.isRequired,
+  active: PropTypes.string.isRequired,
   voteId: PropTypes.string.isRequired,
+  disableVote: PropTypes.bool,
   isLogIn: PropTypes.bool.isRequired,
+  onUpdate: PropTypes.func // 추가된 속성
 };
 
 const Container = styled.div`

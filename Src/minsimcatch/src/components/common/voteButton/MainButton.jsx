@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { getDatabase, ref, runTransaction, set, get } from 'firebase/database';
-import useLogin from '@/hooks/useLogin'; // 로그인 상태 확인을 위한 훅
+import useLogin from '@/hooks/useLogin';
 import Swal from 'sweetalert2';
 import { MainButtonSt, BtnContents } from '@/styles/VotingBtnStyle';
 import PercentNumber from './PercentNumber';
@@ -17,9 +17,11 @@ const MainButton = ({
   id,
   src,
   participate,
-  isOwner,
   active,
   voteId,
+  disableVote,
+  isOwner,
+  onUpdate // 추가된 속성
 }) => {
   const { isLoginIn, uid } = useLogin();
   const [alert, setIsAlert] = useState(false);
@@ -48,6 +50,9 @@ const MainButton = ({
             currentData.votes = (currentData.votes || 0) + increment;
             return currentData;
           }
+          return currentData;
+        }).then(() => {
+          updatePercentages(voteId);  // After updating votes, recalculate percentages
         });
       };
 
@@ -57,7 +62,7 @@ const MainButton = ({
       }
 
       set(userVoteRef, optionId).then(() => {
-        updatePercentages(voteId);  // After updating votes, recalculate percentages
+        if (onUpdate) onUpdate();  // Update 상태 호출
       });
     });
   };
@@ -79,15 +84,14 @@ const MainButton = ({
 
   const clickButton = (e) => {
     e.preventDefault();
+
+    if (disableVote) {
+      return; // complete 페이지에서는 아무 작업도 하지 않음
+    }
+
     if (!isLoginIn) {
       setIsAlert(true);
       Swal.fire('로그인이 필요합니다.');
-      return;
-    }
-
-    if (active === 'complete') {
-      setIsAlert(true);
-      Swal.fire('종료된 게시글은 투표가 불가합니다.');
       return;
     }
 
@@ -131,11 +135,13 @@ MainButton.propTypes = {
   number: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  src: PropTypes.string.isRequired,
+  src: PropTypes.string,
   participate: PropTypes.bool.isRequired,
-  isOwner: PropTypes.bool.isRequired,
   active: PropTypes.string.isRequired,
   voteId: PropTypes.string.isRequired,
+  disableVote: PropTypes.bool, // 추가된 속성
+  isOwner: PropTypes.bool.isRequired, // 추가된 속성
+  onUpdate: PropTypes.func // 추가된 속성
 };
 
 const ButtonContainer = styled.div`
