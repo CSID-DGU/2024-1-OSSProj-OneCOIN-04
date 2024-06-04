@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { BsPeopleFill } from "react-icons/bs";
-import Timer from "@/components/home/Timer";
 import PropTypes from "prop-types";
 import { Palette } from "@/styles/Palette";
 import EndButton from "@/components/common/voteButton/EndButton";
@@ -11,15 +10,16 @@ import Icon from "../Icon";
 /**
  * @param {object} props
  * @param {number} props.totalCount 투표자 수
- * @param {string} props.endDate 작성자가 설정한 투표 마감 시간
  * @param {string} props.what hot,complete,main
  * @param {string} props.username 작성자 이름
  * @param {boolean} props.isOwner 작성자 확인
  * @param {string} props.active 투표 진행중 여부 : continue, complete
+ * @param {string} props.categoryValue 카테고리 값
+ * @param {string} props.id 게시물 ID
+ * @param {boolean} props.modal 모달 표시 여부
  */
 const VoteHead = ({
   totalCount,
-  endDate,
   what,
   username,
   isOwner,
@@ -62,7 +62,6 @@ const VoteHead = ({
           ) : (
             <div className="voteTitle">
               <div className="voteNumber">{totalCount}명이 투표중입니다.</div>
-              <Timer endDate={endDate} username={username} />
             </div>
           )}
         </VoteHeadCss>
@@ -74,7 +73,6 @@ const VoteHead = ({
 
 VoteHead.propTypes = {
   totalCount: PropTypes.number.isRequired,
-  endDate: PropTypes.string.isRequired,
   what: PropTypes.string.isRequired,
   username: PropTypes.string.isRequired,
   isOwner: PropTypes.bool.isRequired,
