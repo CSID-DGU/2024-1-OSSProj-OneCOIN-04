@@ -1,20 +1,25 @@
-import { useMemo } from "react";
+import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
+import PropTypes from "prop-types";
 
-/**
- *
- * @param {object} props
- * @param {object} props.children
- * @param {string} props.elementId
- */
+const Portal = ({ children, elementId }) => {
+  const rootElemRef = useRef(document.createElement("div"));
 
-function Portal({ children, elementId }) {
-  const rootElement = useMemo(
-    () => document.getElementById(elementId),
-    [elementId]
-  );
+  useEffect(() => {
+    const parentElem = document.getElementById(elementId);
+    parentElem.appendChild(rootElemRef.current);
 
-  return createPortal(children, rootElement);
-}
+    return () => {
+      rootElemRef.current.remove();
+    };
+  }, [elementId]);
+
+  return createPortal(children, rootElemRef.current);
+};
+
+Portal.propTypes = {
+  children: PropTypes.node.isRequired,
+  elementId: PropTypes.string.isRequired,
+};
 
 export default Portal;
