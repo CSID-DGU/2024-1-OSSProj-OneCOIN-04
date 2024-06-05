@@ -56,57 +56,78 @@
 <img src="Doc/image/ER다이어그램_피그마.png" alt="블록 다이어그램" width="650" height="350">
 
 ## 최종 결과물✅
-<div style="display: flex; justify-content: center; align-items: center;">
-  <div style="text-align: center; margin-right: 10px;">
-    <p>로그인</p>
-    <img src="Doc/image/LoginPage.png" alt="블록 다이어그램" width="230" height="450">
-  </div>
-  <div style="text-align: center;">
-    <p>회원가입</p>
-    <img src="Doc/image/SignupPage.png" alt="블록 다이어그램" width="230" height="450">
-  </div>
-</div>
-<hr>
-<div style="display: flex; justify-content: center; align-items: center;">
-  <div style="text-align: center; margin-right: 10px;">
-    <p>메인 페이지</p>
-    <img src="Doc/image/MainPage.png" alt="블록 다이어그램" width="230" height=450">
-  </div>
-  <div style="text-align: center;">
-    <p>글작성</p>
-    <img src="Doc/image/UploadPage.png" alt="블록 다이어그램" width="230" height="450">
-  </div>
-</div><hr>
-<div style="display: flex; justify-content: center; align-items: center;">
-  <div style="text-align: center; margin-right: 10px;">
-    <p>핫 페이지</p>
-    <img src="Doc/image/HotPage.png" alt="블록 다이어그램" width="230" height=450">
-  </div>
-  <div style="text-align: center;">
-    <p>완료 페이지</p>
-    <img src="Doc/image/CompletePage.png" alt="블록 다이어그램" width="230" height="450">
-  </div>
-</div><hr>
-<div style="display: flex; justify-content: center; align-items: center;">
-  <div style="text-align: center; margin-right: 10px;">
-    <p>마이 페이지</p>
-    <img src="Doc/image/Mypage.png" alt="블록 다이어그램" width="230" height=450">
-  </div>
-  <div style="text-align: center;">
-    <p>검색 페이지</p>
-    <img src="Doc/image/SearchPage.png" alt="블록 다이어그램" width="230" height="450">
-  </div>
-</div><hr>
-<div style="display: flex; justify-content: center; align-items: center;">
-  <div style="text-align: center; margin-right: 10px;">
-    <p>내가 참여한 투표</p>
-    <img src="Doc/image/MyParticipatePage.png" alt="블록 다이어그램" width="230" height=450">
-  </div>
-  <div style="text-align: center;">
-    <p>내가 작성한 글</p>
-    <img src="Doc/image/MyQuestionPage.png" alt="블록 다이어그램" width="230" height="450">
-  </div>
-</div><hr>
+
+### 로그인 및 회원가입
+<table>
+  <tr>
+    <td style="text-align: center;">
+      <p>로그인</p>
+      <img src="Doc/image/LoginPage.png" alt="로그인" width="230" height="450">
+    </td>
+    <td style="text-align: center;">
+      <p>회원가입</p>
+      <img src="Doc/image/SignupPage.png" alt="회원가입" width="230" height="450">
+    </td>
+  </tr>
+</table>
+
+### 메인 페이지 및 글작성
+<table>
+  <tr>
+    <td style="text-align: center;">
+      <p>메인 페이지</p>
+      <img src="Doc/image/MainPage.png" alt="메인 페이지" width="230" height="450">
+    </td>
+    <td style="text-align: center;">
+      <p>글작성</p>
+      <img src="Doc/image/UploadPage.png" alt="글작성" width="230" height="450">
+    </td>
+  </tr>
+</table>
+
+### 핫 페이지 및 완료 페이지
+<table>
+  <tr>
+    <td style="text-align: center;">
+      <p>핫 페이지</p>
+      <img src="Doc/image/HotPage.png" alt="핫 페이지" width="230" height="450">
+    </td>
+    <td style="text-align: center;">
+      <p>완료 페이지</p>
+      <img src="Doc/image/CompletePage.png" alt="완료 페이지" width="230" height="450">
+    </td>
+  </tr>
+</table>
+
+### 마이 페이지 및 검색 페이지
+<table>
+  <tr>
+    <td style="text-align: center;">
+      <p>마이 페이지</p>
+      <img src="Doc/image/Mypage.png" alt="마이 페이지" width="230" height="450">
+    </td>
+    <td style="text-align: center;">
+      <p>검색 페이지</p>
+      <img src="Doc/image/SearchPage.png" alt="검색 페이지" width="230" height="450">
+    </td>
+  </tr>
+</table>
+
+### 내가 참여한 투표 및 내가 작성한 글
+<table>
+  <tr>
+    <td style="text-align: center;">
+      <p>내가 참여한 투표</p>
+      <img src="Doc/image/MyParticipatePage.png" alt="내가 참여한 투표" width="230" height="450">
+    </td>
+    <td style="text-align: center;">
+      <p>내가 작성한 글</p>
+      <img src="Doc/image/MyQuestionPage.png" alt="내가 작성한 글" width="230" height="450">
+    </td>
+  </tr>
+</table>
+
+
 
 
 
