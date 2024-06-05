@@ -20,11 +20,8 @@ const MyQuestionPage = () => {
   const auth = getAuth();
   const database = getDatabase();
 
-  const [key,setKey] = useState(null);
-
   useEffect(() => {
-    const db = getDatabase();
-    const surveysRef = ref(db, 'surveys');
+    const surveysRef = ref(database, 'surveys');
 
     const unsubscribe = onValue(surveysRef, (snapshot) => {
       const data = snapshot.val();
@@ -37,7 +34,7 @@ const MyQuestionPage = () => {
         }));
 
         const userSurveys = surveysArray.filter(survey => survey.userId === user?.uid);
-        
+
         setSurveys(userSurveys);
         setLoading(false);
       } else {
@@ -69,7 +66,7 @@ const MyQuestionPage = () => {
             {surveys.length ? (
               <div>
                 {surveys.map((survey) => (
-                  <MyVoteList titleKey={survey.key} key={survey.userId} data={survey} route={routes.myquestion} />
+                  <MyVoteList titleKey={survey.key} key={survey.key} data={survey} route={routes.myquestion} />
                 ))}
               </div>
             ) : (

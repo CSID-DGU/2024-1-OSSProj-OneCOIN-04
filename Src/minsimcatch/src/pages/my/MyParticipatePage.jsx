@@ -10,7 +10,6 @@ import styled from "styled-components";
 import { Palette } from "@/styles/Palette";
 import { MyVoteContainer } from "@/styles/Container";
 import Loader from "@/assets/Loader";
-import useLogin from "@/hooks/useLogin";
 
 const MyParticipatePage = () => {
   const [surveys, setSurveys] = useState([]);
@@ -23,44 +22,40 @@ const MyParticipatePage = () => {
   const database = getDatabase();
 
   useEffect(() => {
-    const db = getDatabase();
-    const surveysRef = ref(db, 'surveys');
-    const userVotesRef = ref(db, 'user_votes');
+    const surveysRef = ref(database, 'surveys');
+    const userVotesRef = ref(database, 'user_votes');
 
-    const unsubscribeSurveys = onValue(surveysRef, (snapshot) => {
+    const handleSurveys = (snapshot) => {
       const data = snapshot.val();
       if (snapshot.exists()) {
         const surveysArray = Object.entries(data).map(([key, value]) => ({
           ...value,
           key: key,
-          options: value.options ? Object.values(value.options) : []
+          options: value.options ? Object.values(value.options) : [],
+          active: value.active
         }));
-
-        if (user && userVotes[user.uid]) {
-          const participatedSurveyIds = Object.keys(userVotes[user.uid]);
-          const userSurveys = surveysArray.filter(survey => participatedSurveyIds.includes(survey.key));
-          setSurveys(userSurveys);
-        } else {
-          setSurveys([]);
-        }
-        setLoading(false);
+        setSurveys(surveysArray);
       } else {
         setSurveys([]);
-        setLoading(false);
       }
-    }, (error) => {
-      setError(`Error loading data: ${error.message}`);
       setLoading(false);
-    });
+    };
 
-    const unsubscribeUserVotes = onValue(userVotesRef, (snapshot) => {
+    const handleUserVotes = (snapshot) => {
       const data = snapshot.val();
       if (snapshot.exists()) {
         setUserVotes(data);
       } else {
         setUserVotes({});
       }
-    }, (error) => {
+    };
+
+    const unsubscribeSurveys = onValue(surveysRef, handleSurveys, (error) => {
+      setError(`Error loading data: ${error.message}`);
+      setLoading(false);
+    });
+
+    const unsubscribeUserVotes = onValue(userVotesRef, handleUserVotes, (error) => {
       setError(`Error loading data: ${error.message}`);
     });
 
@@ -68,16 +63,27 @@ const MyParticipatePage = () => {
       unsubscribeSurveys();
       unsubscribeUserVotes();
     };
-  }, [user, userVotes]);
+  }, []);
 
-  
   useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
+    const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
       setUser(user);
     });
+
+    return () => {
+      unsubscribeAuth();
+    };
   }, [auth]);
 
-  
+  useEffect(() => {
+    if (user && userVotes[user.uid]) {
+      const participatedSurveyIds = Object.keys(userVotes[user.uid]);
+      const userSurveys = surveys.filter(survey => participatedSurveyIds.includes(survey.key));
+      setSurveys(userSurveys);
+    } else {
+      setSurveys([]);
+    }
+  }, [user, userVotes]);
 
   return (
     <div>
