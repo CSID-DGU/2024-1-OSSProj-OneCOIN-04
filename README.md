@@ -17,6 +17,7 @@
 | 팀원      | 송원종 |      철학과      | 2018110398 | songmachi     |
 | 팀원      | 이종주 | 산업시스템공학과 | 2021112456 | LJongJoo      |
 
+- 지도교수: SW융합교육원 이길섭, 박효순  
 ## 문서 바로가기🔎
 - [수행 계획서](https://github.com/CSID-DGU/2024-1-OSSProj-OneCOIN-04/blob/main/Doc/1_1_OSSProj_04_OneCOIN_%EC%88%98%ED%96%89%EA%B3%84%ED%9A%8D%EC%84%9C.md)
 - [중간 보고서](https://github.com/CSID-DGU/2024-1-OSSProj-OneCOIN-04/blob/main/Doc/2_1_OSSProj_04_OneCOIN_%EC%A4%91%EA%B0%84%EB%B3%B4%EA%B3%A0%EC%84%9C.md)
@@ -55,6 +56,59 @@
 <img src="Doc/image/ER다이어그램_피그마.png" alt="블록 다이어그램" width="650" height="350">
 
 ## 최종 결과물✅
+<div style="display: flex; justify-content: center; align-items: center;">
+  <div style="text-align: center; margin-right: 10px;">
+    <p>로그인</p>
+    <img src="Doc/image/LoginPage.png" alt="블록 다이어그램" width="230" height="450">
+  </div>
+  <div style="text-align: center;">
+    <p>회원가입</p>
+    <img src="Doc/image/SignupPage.png" alt="블록 다이어그램" width="230" height="450">
+  </div>
+</div>
+<hr>
+<div style="display: flex; justify-content: center; align-items: center;">
+  <div style="text-align: center; margin-right: 10px;">
+    <p>메인 페이지</p>
+    <img src="Doc/image/MainPage.png" alt="블록 다이어그램" width="230" height=450">
+  </div>
+  <div style="text-align: center;">
+    <p>글작성</p>
+    <img src="Doc/image/UploadPage.png" alt="블록 다이어그램" width="230" height="450">
+  </div>
+</div><hr>
+<div style="display: flex; justify-content: center; align-items: center;">
+  <div style="text-align: center; margin-right: 10px;">
+    <p>핫 페이지</p>
+    <img src="Doc/image/HotPage.png" alt="블록 다이어그램" width="230" height=450">
+  </div>
+  <div style="text-align: center;">
+    <p>완료 페이지</p>
+    <img src="Doc/image/CompletePage.png" alt="블록 다이어그램" width="230" height="450">
+  </div>
+</div><hr>
+<div style="display: flex; justify-content: center; align-items: center;">
+  <div style="text-align: center; margin-right: 10px;">
+    <p>마이 페이지</p>
+    <img src="Doc/image/Mypage.png" alt="블록 다이어그램" width="230" height=450">
+  </div>
+  <div style="text-align: center;">
+    <p>검색 페이지</p>
+    <img src="Doc/image/SearchPage.png" alt="블록 다이어그램" width="230" height="450">
+  </div>
+</div><hr>
+<div style="display: flex; justify-content: center; align-items: center;">
+  <div style="text-align: center; margin-right: 10px;">
+    <p>내가 참여한 투표</p>
+    <img src="Doc/image/MyParticipatePage.png" alt="블록 다이어그램" width="230" height=450">
+  </div>
+  <div style="text-align: center;">
+    <p>내가 작성한 글</p>
+    <img src="Doc/image/MyQuestionPage.png" alt="블록 다이어그램" width="230" height="450">
+  </div>
+</div><hr>
+
+
 
 ## 개발 환경
 - OS: MacOS, Windows
