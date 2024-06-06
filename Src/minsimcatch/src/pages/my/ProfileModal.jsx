@@ -8,6 +8,7 @@ import { isLoginInState } from "@/utils/AuthAtom";
 import Swal from "sweetalert2";
 import { auth, database } from '@/firebase-config';
 import { ref, update, get } from 'firebase/database';
+import { Navigate } from 'react-router-dom';
 
 const ProfileModal = ({ myNickName, myEmail, img }) => {
   const [newInfo, setNewInfo] = useState({
@@ -63,6 +64,10 @@ const ProfileModal = ({ myNickName, myEmail, img }) => {
       if (result.isConfirmed) {
         setisLoginIn(false);
         auth.signOut(); // Firebase auth sign-out
+        Swal.fire("Success", "로그아웃 되었습니다.", "success");
+        window.location.href = "/main";
+        
+        
       }
     });
   };
