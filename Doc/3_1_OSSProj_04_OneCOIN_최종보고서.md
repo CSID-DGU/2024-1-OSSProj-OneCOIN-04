@@ -112,10 +112,10 @@
 <table>
   <tr>
     <td style="text-align: center;">
-      <img src="image/MyParticipatePage.png" alt="메인 페이지" width="300" height="550">
+      <img src="image/MyParticipatePage.png" alt="메인 페이지" width="300" height="450">
     </td>
     <td style="text-align: center;">
-      <img src="image/MyQuestionPage.png" alt="글작성" width="300" height="550">
+      <img src="image/MyQuestionPage.png" alt="글작성" width="300" height="450">
     </td>
   </tr>
 </table>
