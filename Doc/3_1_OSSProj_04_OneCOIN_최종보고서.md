@@ -42,13 +42,13 @@
 <table>
   <tr>
     <td style="text-align: center;">
-      <img src="image/투표조사1.png" alt="투표조사" width="300" height="300">
+      <img src="image/투표조사1.png" alt="투표조사" width="300" height="500">
     </td>
     <td style="text-align: center;">
-      <img src="image/투표조사2.png" alt="투표조사" width="300" height="300">
+      <img src="image/투표조사2.png" alt="투표조사" width="300" height="500">
     </td>
     <td style="text-align: center;">
-      <img src="image/투표조사3.png" alt="투표조사" width="300" height="300">
+      <img src="image/투표조사3.png" alt="투표조사" width="300" height="500">
     </td>
   </tr>
 </table>
@@ -75,22 +75,16 @@
 <table>
   <tr>
     <td style="text-align: center;">
-      <img src="image/LoginPage.png" alt="로그인화면" width="300" height="300">
+      <img src="image/LoginPage.png" alt="로그인화면" width="450" height="500">
     </td>
     <td style="text-align: center;">
-      <img src="image/SignupPage.png" alt="회원가입화면" width="300" height="300">
+      <img src="image/SignupPage.png" alt="회원가입화면" width="450" height="500">
     </td>
     <td style="text-align: center;">
-      <img src="image/Mypage.png" alt="마이페이지" width="350" height="300">
+      <img src="image/Mypage.png" alt="마이페이지" width="450" height="500">
     </td>
   </tr>
 </table>
-
-<div style="display:flex;">
-    <img src="image/LoginPage.png" alt="로그인화면" width="300" height="500">
-    <img src="image/SignupPage.png" alt="회원가입화면" width="300" height="500">
-    <img src="image/Mypage.png" alt="마이페이지" width="300" height="500">    
-</div><br> 
 
 #### 2.2 메인페이지 기능
 * 사용자가 로그인 후 제일 처음 접하는 화면으로 현재 투표가 진행중인 게시글을 불러옵니다. 별도의 작업 없이, 사용자는 스크롤을 통해 손쉽게 여러 고민글에 접근할 수 있습니다.
@@ -110,15 +104,21 @@
 * 사용자는 화면 하단의 "+" 버튼을 눌러 업로드 기능에 접근할 수 있습니다. 질문의 제목과 상세한 설명, 투표 받을 선택지를 자유롭게 추가하여 손쉽고 빠르게 고민 해결을 위한 대안들을 얻을 수 있습니다.
 
 <div style="display:flex">
-    <img src="image/UploadPage.png" alt="업로드페이지" width="300" height="500">
+    <img src="image/UploadPage.png" alt="업로드페이지" width="320" height="500">
 </div><br>
 
 #### 2.5 내가 참여한 게시글, 내가 질문한 게시글
 * 사용자는 마이페이지 화면에서 내가 참여한 투표와 내가 한 질문에 바로 접근할 수 있습니다. 해당 화면에서는 투표의 진행 여부와 제목을 불러오고 해당 게시글로 연결해줍니다.
-<div style="display:flex">
-    <img src="image/MyParticipatePage.png" alt="내가 참여한 게시글" width="300" height="500">
-    <img src="image/MyQuestionPage.png" alt="내가 한 질문" widht="300" height="500">
-</div><br>
+<table>
+  <tr>
+    <td style="text-align: center;">
+      <img src="image/MyParticipatePage.png" alt="메인 페이지" width="300" height="550">
+    </td>
+    <td style="text-align: center;">
+      <img src="image/MyQuestionPage.png" alt="글작성" width="300" height="550">
+    </td>
+  </tr>
+</table>
 
 #### 2.6 핫 페이지
 * 핫 페이지 기능은 투표가 가장 활발하게 진행되고 있는 게시글을 보여주는 기능입니다. 사용자는 해당 서비스에서 가장 이슈가 되고 있는 고민이 무엇인지 파악할 수 있습니다.
@@ -140,8 +140,9 @@
 <img src="image/블록다이어그램최종.png" alt="개념설계">
 
 * 상세설계
-<img src="image/ER다이어그램_피그마.png" alt="상세설계">
 <img src="image/블록다이어그램1.png" alt="상세설계">
+<br>
+<img src="image/ER다이어그램_피그마.png" alt="상세설계">
 
 * 개념설계 단계에서 주요 기능인 로그인 및 회원가입, 마이페이지, 글 작성과 투표, 검색 기능등을 구상하였습니다. 기본적으로 모든 데이터 통신은 JSON 파일을 통해 FireBase와 이루어지고 저장됩니다.
 
