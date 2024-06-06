@@ -37,17 +37,22 @@
 #### 1.2 필요성  
 - 여러 커뮤니티를 조사 했을 때 투표를 해달라는 글이 상당수 존재
   - 커뮤니티에 투표라는 키워드로 검색 했을 때 투표만을 원하는 글들이 상당히 많았다.
-<div style="display:flex;">
-    <img src="image/투표조사1.png" alt="투표조사" width="300" height="300">
-    <img src="image/투표조사2.png" alt="투표조사" width="300" height="300">
-    <img src="image/투표조사3.png" alt="투표조사" width="300" height="300">    
-</div>
-<br>
-<div style="display:flex;">
-    <img src="image/투표조사4.png" alt="투표조사" width="300" height="300">
-    <img src="image/투표조사5.png" alt="투표조사" width="300" height="300">
-    <img src="image/투표조사6.png" alt="투표조사" width="300" height="300">    
-</div><br>
+## 투표 조사 이미지
+
+<table>
+  <tr>
+    <td style="text-align: center;">
+      <img src="image/투표조사1.png" alt="투표조사" width="300" height="300">
+    </td>
+    <td style="text-align: center;">
+      <img src="image/투표조사2.png" alt="투표조사" width="300" height="300">
+    </td>
+    <td style="text-align: center;">
+      <img src="image/투표조사3.png" alt="투표조사" width="300" height="300">
+    </td>
+  </tr>
+</table>
+
 
 #### 1.3 개발 목표
 - 민심캐치 소개 및 목표 설정
@@ -65,6 +70,21 @@
 
 #### 2.1 로그인, 회원가입, 마이페이지 기능
 * "민심캐치"는 중복 투표 방지 및 게시글 관리의 편의를 위해 회원만 서비스를 사용할 수 있습니다. 이를 위해 로그인 기능과, 이메일을 이용한 회원가입을 지원하고, 마이페이지에 접근할 수 있습니다. 회원정보는 FireBase DB에 저장됩니다.
+
+
+<table>
+  <tr>
+    <td style="text-align: center;">
+      <img src="image/LoginPage.png" alt="로그인화면" width="300" height="300">
+    </td>
+    <td style="text-align: center;">
+      <img src="image/SignupPage.png" alt="회원가입화면" width="300" height="300">
+    </td>
+    <td style="text-align: center;">
+      <img src="image/Mypage.png" alt="마이페이지" width="350" height="300">
+    </td>
+  </tr>
+</table>
 
 <div style="display:flex;">
     <img src="image/LoginPage.png" alt="로그인화면" width="300" height="500">
