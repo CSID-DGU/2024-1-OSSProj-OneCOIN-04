@@ -1,28 +1,25 @@
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import { getAuth } from "firebase/auth";
+import styled from "styled-components";
 import { ModalMainContainer } from "@/styles/Container";
 import ButtonLayout from "@/components/common/voteButton/ButtonLayout";
 import VoteHead from "@/components/common/voteButton/VoteHead";
 import MainContent from "@/components/home/MainContent";
-import VoteBottom from "@/components/common/voteButton/VoteBottom";
-import { useEffect, useState } from "react";
+import VoteBottom2 from "@/components/common/voteButton/VoteBottom2";
 import Modal from "./Modal";
 import ShareForm from "./ShareForm";
-import styled from "styled-components";
 import ChatForm from "./ChatForm";
-import PropTypes from "prop-types";
 
 /**
  * @param {object} props
  * @param {object} props.detailData
- * @param {string} props.what
- * @param {function} props.click
- *
  **/
 
-const ModalTemplate = ({ detailData, click, what }) => {
+const ModalTemplate = ({ detailData }) => {
   const {
     totalCount,
     participate,
-    isOwner,
     title,
     content,
     endDate,
@@ -30,16 +27,30 @@ const ModalTemplate = ({ detailData, click, what }) => {
     options,
     username,
     category,
-    id,
+    id,  // id 확인
+    userId,
+    comments = []
   } = detailData;
+
+  useEffect(() => {
+    console.log('Detail data:', detailData); // 데이터 확인용
+    console.log('Comments:', comments); // 댓글 데이터 확인
+    console.log('ID:', id); // ID 확인
+  }, [detailData, comments, id]);
 
   const [optionState, setOptionState] = useState(options);
   const [participateState, setParticipate] = useState(participate);
+  const [commentCount, setCommentCount] = useState(comments.length);
 
   useEffect(() => {
     setOptionState(options);
     setParticipate(participate);
-  }, [detailData, participate]);
+    setCommentCount(comments.length);
+  }, [detailData, participate, comments]);
+
+  const auth = getAuth();
+  const user = auth.currentUser;
+  const isOwner = user?.uid === userId;
 
   const [modalVisible, setModalVisible] = useState(false);
   const [commentModalVisible, setCommentModalVisible] = useState(false);
@@ -61,7 +72,6 @@ const ModalTemplate = ({ detailData, click, what }) => {
   const [totalCountState, setTotalCountState] = useState(totalCount);
 
   const changeVotes = (participate, result) => {
-    click && click(participate, result);
     const resultData = result?.result;
     setParticipate(participate);
 
@@ -85,30 +95,33 @@ const ModalTemplate = ({ detailData, click, what }) => {
           <VoteHead
             totalCount={totalCountState}
             endDate={endDate}
-            what={what}
             isOwner={isOwner}
             active={active}
             username={username}
             categoryValue={category}
             id={id}
             modal={true}
-          ></VoteHead>
-          <MainContent title={title} content={content}></MainContent>
+          />
+          <MainContent title={title} content={content} />
 
           <ButtonLayout
             participate={participateState}
             isOwner={isOwner}
             active={active}
             options={optionState}
-            changeVotes={changeVotes}
-          ></ButtonLayout>
+            voteId={id}
+            isLogIn={true}
+            disableVote={false}
+            onUpdate={changeVotes} // Update 함수 전달
+          />
 
-          <VoteBottom
-            onClickShare={shareOpenModal}
+          <VoteBottom2
             onClick={openCommentModal}
+            onClickShare={shareOpenModal}
             modal={true}
             id={id}
-          ></VoteBottom>
+            commentCount={commentCount}
+          />
           {modalVisible && (
             <Modal
               visible={modalVisible}
@@ -137,8 +150,6 @@ const ModalTemplate = ({ detailData, click, what }) => {
 
 ModalTemplate.propTypes = {
   detailData: PropTypes.object.isRequired,
-  click: PropTypes.func.isRequired,
-  what: PropTypes.string.isRequired,
 };
 
 const Container = styled.div`

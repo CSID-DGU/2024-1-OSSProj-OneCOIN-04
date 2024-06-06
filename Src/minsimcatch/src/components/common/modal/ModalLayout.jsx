@@ -1,27 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { useParams } from "react-router-dom";
 import { getDatabase, ref, onValue } from "firebase/database";
 import Loader from "@/assets/Loader";
 import ModalTemplate from "./ModalTemplate";
 
-const ModalLayout = ({ what, click }) => {
-  const { id } = useParams();
-  
+const ModalLayout = ({ id }) => {
   const [detailData, setDetailData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const db = getDatabase();
-    const surveyRef = ref(db, `surveys/${id}`); // 개선된 접근 방식: 특정 설문만 참조
+    const surveyRef = ref(db, `surveys/${id}`);
 
     const unsubscribe = onValue(surveyRef, (snapshot) => {
       if (snapshot.exists()) {
+        const data = snapshot.val();
+        console.log('Survey data:', data); // 데이터 확인용
         setDetailData({
-          ...snapshot.val(),
-          options: snapshot.val().options ? Object.values(snapshot.val().options) : []
+          ...data,
+          id: id,  // id를 detailData에 포함
+          options: data.options ? Object.values(data.options) : [],
+          comments: data.comments ? Object.values(data.comments) : [] // 댓글 추가
         });
+        setError(null);
       } else {
         setError("Survey not found");
         setDetailData(null);
@@ -35,6 +37,11 @@ const ModalLayout = ({ what, click }) => {
     return () => unsubscribe();
   }, [id]);
 
+  useEffect(() => {
+    console.log('ModalLayout ID:', id); // ID 확인용 로그 추가
+    console.log('ModalLayout detailData:', detailData); // detailData 확인용 로그 추가
+  }, [id, detailData]);
+
   return (
     <>
       {loading ? (
@@ -42,21 +49,16 @@ const ModalLayout = ({ what, click }) => {
       ) : error ? (
         <div>Error: {error}</div>
       ) : detailData ? (
-        <ModalTemplate
-          detailData={detailData}
-          click={click}
-          what={what}
-        />
+        <ModalTemplate detailData={detailData} />
       ) : (
-        <div>No survey data available.</div>
+        <div>Survey not found.</div>
       )}
     </>
   );
 };
 
 ModalLayout.propTypes = {
-  what: PropTypes.string,
-  click: PropTypes.func,
+  id: PropTypes.string.isRequired,
 };
 
 export default ModalLayout;
