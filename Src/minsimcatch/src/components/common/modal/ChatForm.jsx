@@ -6,6 +6,9 @@ import Alert from "../Alert";
 import { getDatabase, ref, onValue, push, remove } from "firebase/database";
 import Swal from "sweetalert2";
 import useLogin from "@/hooks/useLogin";
+import Filter from "badwords-ko";  // 필터 라이브러리 추가
+
+const filter = new Filter();  // 필터 인스턴스 생성
 
 const ChatForm = ({ surveyId, onClose }) => {
   const [write, setWrite] = useState("");
@@ -58,17 +61,42 @@ const ChatForm = ({ surveyId, onClose }) => {
       isOwner = snapshot.val() === uid;
     });
 
-    if (participate || isOwner) {
-      const commentsRef = ref(db, `surveys/${surveyId}/comments`);
-      push(commentsRef, {
-        content: write,
-        username: nickname || uid,
-        createTime: new Date().toISOString(),
+    // 욕설 감지 추가
+    if (filter.isProfane(write)) {
+      Swal.fire({
+        icon: "error",
+        title: "경고",
+        text: "욕설이 포함된 댓글은 작성할 수 없습니다.",
+        confirmButtonColor: "#d33",
       });
-      setWrite("");
-    } else {
-      setIsAlert(true);
+      return;
     }
+
+    // 확인 팝업 추가
+    Swal.fire({
+      title: '댓글을 등록하시겠습니까?',
+      text: '댓글을 등록하시려면 확인을 눌러주세요.',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: '확인',
+      cancelButtonText: '취소',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        if (participate || isOwner) {
+          const commentsRef = ref(db, `surveys/${surveyId}/comments`);
+          push(commentsRef, {
+            content: write,
+            username: nickname || uid,
+            createTime: new Date().toISOString(),
+          });
+          setWrite("");
+        } else {
+          setIsAlert(true);
+        }
+      }
+    });
   };
 
   const handleEnterKey = (e) => {
