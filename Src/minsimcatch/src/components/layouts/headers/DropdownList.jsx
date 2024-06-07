@@ -1,14 +1,20 @@
+// src/components/headers/DropdownList.jsx
 export const sortList = [
   {
     id: 0,
     category: "최신순",
-    value: "current",
+    value: "latest",
   },
   {
     id: 1,
-    category: "인기순",
-    value: "popular",
+    category: "오래된 순",
+    value: "oldest",
   },
+  {
+    id: 2,
+    category: "댓글 많은 순",
+    value: "mostComments",
+  }
 ];
 
 export const contentList = [
@@ -19,32 +25,32 @@ export const contentList = [
   },
   {
     id: 1,
-    category: "뭐사지(구매)",
+    category: "뭐사지",
     value: "buy",
   },
   {
     id: 2,
-    category: "어디갈까(갈곳)",
+    category: "어디갈까",
     value: "where",
   },
   {
     id: 3,
-    category: "뭐하지(할것)",
+    category: "뭐하지",
     value: "what",
   },
   {
     id: 4,
-    category: "뭐먹지(음식)",
+    category: "뭐먹지",
     value: "food",
   },
   {
     id: 5,
-    category: "뭐볼까(미디어)",
+    category: "뭐볼까",
     value: "movie",
   },
   {
     id: 6,
-    category: "들어줘(상담)",
+    category: "들어줘",
     value: "listen",
   },
   {

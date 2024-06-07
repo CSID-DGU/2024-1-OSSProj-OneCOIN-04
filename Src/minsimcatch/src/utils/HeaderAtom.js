@@ -1,8 +1,9 @@
-import {atom, selector} from "recoil";
-// 메인페이지 
+import { atom, selector } from "recoil";
+
+// 메인페이지
 export const sortState = atom({
   key: "sortState",
-  default: "current",
+  default: "latest",
 });
 
 export const sortNameState = atom({
@@ -17,23 +18,23 @@ export const segmentState = atom({
 
 export const segmentNameState = atom({
   key: "segmentNameState",
-  default: "골라조(전체)",
+  default: "골라줘(전체)",
 });
 
 export const totalCategoryState = selector({
   key: "totalCategoryState",
-  get: ({get}) => {
-    return{
-      sort : get(sortState),
-      content : get(segmentState)
+  get: ({ get }) => {
+    return {
+      sort: get(sortState),
+      content: get(segmentState),
     };
-  }
-})
+  },
+});
 
 // 완료된 페이지
 export const completeSortState = atom({
   key: "completeSortState",
-  default: "current",
+  default: "latest",
 });
 
 export const completeSortNameState = atom({
@@ -48,15 +49,15 @@ export const completeSegmentState = atom({
 
 export const completeSegmentNameState = atom({
   key: "completeSegmentNameState",
-  default: "골라조(전체)",
+  default: "골라줘(전체)",
 });
 
 export const completeTotalCategoryState = selector({
   key: "completeTotalCategoryState",
-  get: ({get}) => {
-    return{
-      sort : get(completeSortState),
-      content : get(completeSegmentState)
+  get: ({ get }) => {
+    return {
+      sort: get(completeSortState),
+      content: get(completeSegmentState),
     };
-  }
-})
+  },
+});

@@ -1,4 +1,4 @@
-// 메인페이지, 완료된 페이지 헤더
+import React, { useState } from "react";
 import styled from "styled-components";
 import { CategoryBox } from "./CategoryBox";
 import SearchButton from "./SearchButton";
@@ -6,14 +6,19 @@ import { CompleteCategoryBox } from "./CompleteCategoryBox";
 import PropTypes from "prop-types";
 
 /**
- *
  * @param {object} props
  * @param {string} props.page
+ * @param {function} props.onSortChange
+ * @param {function} props.onCategoryChange
  */
-const Main = ({ page }) => {
+const Main = ({ page, onSortChange, onCategoryChange }) => {
   return (
     <Nav>
-      {page === "main" ? <CategoryBox /> : <CompleteCategoryBox />}
+      {page === "main" ? (
+        <CategoryBox onSortChange={onSortChange} onCategoryChange={onCategoryChange} />
+      ) : (
+        <CompleteCategoryBox onSortChange={onSortChange} onCategoryChange={onCategoryChange} />
+      )}
       <SearchButton />
     </Nav>
   );
@@ -21,6 +26,8 @@ const Main = ({ page }) => {
 
 Main.propTypes = {
   page: PropTypes.string.isRequired,
+  onSortChange: PropTypes.func.isRequired,
+  onCategoryChange: PropTypes.func.isRequired,
 };
 
 const Nav = styled.nav`
