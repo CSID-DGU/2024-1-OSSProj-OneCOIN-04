@@ -1,16 +1,16 @@
-import styled from "styled-components";
+import React, { useEffect, useState } from "react";
 import { BsPeopleFill } from "react-icons/bs";
 import PropTypes from "prop-types";
 import { Palette } from "@/styles/Palette";
 import EndButton from "@/components/common/voteButton/EndButton";
-import { useEffect, useState } from "react";
 import { contentList } from "@/components/layouts/headers/DropdownList";
+import styled from "styled-components";
 import Icon from "../Icon";
 
 /**
  * @param {object} props
  * @param {number} props.totalCount 투표자 수
- * @param {string} props.what hot,complete,main
+ * @param {string} props.what hot, complete, main
  * @param {string} props.username 작성자 이름
  * @param {boolean} props.isOwner 작성자 확인
  * @param {string} props.active 투표 진행중 여부 : continue, complete
@@ -36,6 +36,11 @@ const VoteHead = ({
       }
     });
   }, [categoryValue]);
+
+  useEffect(() => {
+    console.log('VoteHead totalCount:', totalCount); // totalCount 확인
+    console.log('VoteHead ID:', id); // id 확인
+  }, [totalCount, id]);
 
   return (
     <>

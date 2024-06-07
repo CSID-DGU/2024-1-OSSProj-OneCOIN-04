@@ -27,7 +27,7 @@ const ModalTemplate = ({ detailData }) => {
     options,
     username,
     category,
-    id,  // id 확인
+    id,
     userId,
     comments = []
   } = detailData;
@@ -36,7 +36,8 @@ const ModalTemplate = ({ detailData }) => {
     console.log('Detail data:', detailData); // 데이터 확인용
     console.log('Comments:', comments); // 댓글 데이터 확인
     console.log('ID:', id); // ID 확인
-  }, [detailData, comments, id]);
+    console.log('Total Count:', totalCount); // Total Count 확인
+  }, [detailData, comments, id, totalCount]);
 
   const [optionState, setOptionState] = useState(options);
   const [participateState, setParticipate] = useState(participate);
@@ -69,8 +70,6 @@ const ModalTemplate = ({ detailData }) => {
     setCommentModalVisible(true);
   };
 
-  const [totalCountState, setTotalCountState] = useState(totalCount);
-
   const changeVotes = (participate, result) => {
     const resultData = result?.result;
     setParticipate(participate);
@@ -93,14 +92,14 @@ const ModalTemplate = ({ detailData }) => {
       <ModalMainContainer className="modal">
         <Container>
           <VoteHead
-            totalCount={totalCountState}
+            totalCount={totalCount} // totalCount 전달
             endDate={endDate}
-            isOwner={isOwner}
-            active={active}
+            what="modal"
             username={username}
+            active={active}
+            isOwner={isOwner}
             categoryValue={category}
             id={id}
-            modal={true}
           />
           <MainContent title={title} content={content} />
 
@@ -112,7 +111,7 @@ const ModalTemplate = ({ detailData }) => {
             voteId={id}
             isLogIn={true}
             disableVote={false}
-            onUpdate={changeVotes} // Update 함수 전달
+            onUpdate={changeVotes}
           />
 
           <VoteBottom2

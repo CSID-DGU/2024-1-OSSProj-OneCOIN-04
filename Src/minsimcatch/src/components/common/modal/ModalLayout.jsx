@@ -19,9 +19,10 @@ const ModalLayout = ({ id }) => {
         console.log('Survey data:', data); // 데이터 확인용
         setDetailData({
           ...data,
-          id: id,  // id를 detailData에 포함
+          id: id,
           options: data.options ? Object.values(data.options) : [],
-          comments: data.comments ? Object.values(data.comments) : [] // 댓글 추가
+          comments: data.comments ? Object.values(data.comments) : [],
+          totalCount: Object.values(data.options || {}).reduce((sum, option) => sum + (option.votes || 0), 0), // votes 합계 계산
         });
         setError(null);
       } else {
