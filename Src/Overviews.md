@@ -13,6 +13,8 @@
 - [SweetAlert2](https://github.com/sweetalert2/sweetalert2) - MIT License
 - [PropTypes](https://github.com/facebook/prop-types) - MIT License
 - [@mui/icons-material](https://github.com/mui/material-ui/tree/master/packages/mui-icons-material) - MIT License
+- [tanstack/react-query](https://github.com/TanStack/query) - MIT License
+- [badwords-ko](https://github.com/gon125/badwords-ko) - MIT License
 
 ## 라이센스
 
