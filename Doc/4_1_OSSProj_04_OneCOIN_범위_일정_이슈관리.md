@@ -1,7 +1,24 @@
 # A4.1 프로젝트 범위 / 일정 / 이슈 관리  
 
-## 범위 및 일정 관리
+## 범위 관리
+## 기능 구현 현황([범위 관리 바로가기](https://docs.google.com/spreadsheets/d/1D23VCFfzl1AauwCncltuhI9Hdxy8iGv5-24Mk3LrgCk/edit#gid=1386834576))
 
+| 구현여부 |  | 기능 | 구현 상세 설명 | 연결된 컴포넌트 |
+|----------|------|------|----------------|-----------------|
+| 100% |신규작성| 로그인 | 로그인 기능 | Src/minsimcatch/src/pages/login/LoginPage.jsx |
+| 100% |신규작성| 핫 게시물 | 투표가 많이 되어있는 글을 보여줌 | Src/minsimcatch/src/pages/hot/HotPage.jsx |
+| 100% |신규작성| 완료된 게시물 | 투표를 완료한(종료한) 글을 보여줌 | Src/minsimcatch/src/pages/complete/CompletePage.jsx |
+| 100% |신규작성| 마이 페이지 | 투표 내역, 작성한 글, 정보 수정 화면을 보여줌 | Src/minsimcatch/src/pages/my/Mypage.jsx |
+| 100% |신규작성| 메인 페이지 | 로그인하면 보이는 페이지(질문 글들이 보임) | Src/minsimcatch/src/pages/main/MainPage.jsx |
+| 100% |신규작성| 검색 | 키워드로 글을 검색할 수 있음 | Src/minsimcatch/src/pages/serach/SearchPage.jsx |
+| 100% |신규작성| 회원가입 | 회원가입 기능 | Src/minsimcatch/src/pages/signup/SignUpPage.jsx |
+| 100% |신규작성| 업로드 | 글을 작성해 업로드 하는 기능 | Src/minsimcatch/src/pages/upload/UploadPage.jsx |
+| 100% |신규작성| 댓글 | 모달을 통해 댓글을 작성하는 기능 | Src/minsimcatch/src/components/common/modal/ChatFrom.jsx |
+| X || 내 프로필이미지 | 마이페이지에서 내 프로필 사진 변경 | 사유 : 초기에 개발을 하지 못해 데이터구조가 복잡해져 시간이슈로 시도하다 실패함 |
+| 100% |신규작성| 투표 종료 | 투표 종료를 눌러 더 이상 투표를 하지 못하도록 설정 | Src/minsimcatch/src/components/common/VoteButton/EndButton.jsx |
+| 100% |신규작성| 내가 투표한 게시물 | 내가 투표한 게시물의 리스트를 보여줌 | Src/minsimcatch/src/pages/my/MyParticipatePage.jsx |
+| 100% |신규작성| 내가 작성한 글 | 내가 작성한 글의 리스트를 보여줌 | Src/minsimcatch/src/pages/my/MyQuestionPage.jsx |
+## 일정 관리
 ### Gantt 차트 활용
 - **목적**: 프로젝트의 전체 범위와 일정을 시각적으로 관리하여, 각 팀원이 프로젝트의 진행 상황을 쉽게 파악할 수 있도록 합니다.
 - **도구**: Gantt 차트를 사용하여 중요한 마일스톤과 각 작업의 예상 시작 및 종료 날짜를 표시합니다.
