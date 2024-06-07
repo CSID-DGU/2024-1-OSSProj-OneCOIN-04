@@ -23,18 +23,19 @@ const MyParticipatePage = () => {
 
   useEffect(() => {
     const surveysRef = ref(database, 'surveys');
-    const userVotesRef = ref(database, 'user_votes');
+    const userVotesRef = ref(database, `user_votes/${user?.uid}`);
 
     const handleSurveys = (snapshot) => {
       const data = snapshot.val();
-      if (snapshot.exists()) {
+      if (data) {
         const surveysArray = Object.entries(data).map(([key, value]) => ({
           ...value,
           key: key,
           options: value.options ? Object.values(value.options) : [],
-          active: value.active
         }));
-        setSurveys(surveysArray);
+        // 내가 참여한 설문조사 필터링
+        const filteredSurveys = surveysArray.filter(survey => userVotes[survey.key]);
+        setSurveys(filteredSurveys);
       } else {
         setSurveys([]);
       }
@@ -43,7 +44,7 @@ const MyParticipatePage = () => {
 
     const handleUserVotes = (snapshot) => {
       const data = snapshot.val();
-      if (snapshot.exists()) {
+      if (data) {
         setUserVotes(data);
       } else {
         setUserVotes({});
@@ -63,54 +64,43 @@ const MyParticipatePage = () => {
       unsubscribeSurveys();
       unsubscribeUserVotes();
     };
-  }, []);
+  }, [user, userVotes]);
 
   useEffect(() => {
-    const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, (user) => {
       setUser(user);
     });
-
-    return () => {
-      unsubscribeAuth();
-    };
   }, [auth]);
-
-  useEffect(() => {
-    if (user && userVotes[user.uid]) {
-      const participatedSurveyIds = Object.keys(userVotes[user.uid]);
-      const userSurveys = surveys.filter(survey => participatedSurveyIds.includes(survey.key));
-      setSurveys(userSurveys);
-    } else {
-      setSurveys([]);
-    }
-  }, [user, userVotes]);
 
   return (
     <div>
       <SubMyPageHeader page="내가 참여한 투표" />
       <MyVoteContainer>
-        {!loading ? (
-          surveys.length ? (
-            <div>
-              {surveys.map((data) => (
-                <MyVoteList titleKey={data.key} key={data.key} data={data} route={routes.myparticipation} />
-              ))}
-            </div>
-          ) : (
-            <Box>
-              <Text>
-                참여한 투표가 없습니다. <br />
-                당신의 생각을 <Goala>MinsimCatch</Goala>하세요!
-              </Text>
-              <div>
-                <Button onClick={() => navigate(routes.hot)}>
-                  투표 하러가기
-                </Button>
-              </div>
-            </Box>
-          )
-        ) : (
+        {loading ? (
           <Loader />
+        ) : surveys.length ? (
+          <div>
+            {surveys.map((data) => (
+              <MyVoteList
+                key={data.key}
+                titleKey={data.key}
+                data={data}
+                route={routes.myparticipation}
+              />
+            ))}
+          </div>
+        ) : (
+          <Box>
+            <Text>
+              참여한 투표가 없습니다. <br />
+              당신의 생각을 <Goala>MinsimCatch</Goala>하세요!
+            </Text>
+            <div>
+              <Button onClick={() => navigate(routes.hot)}>
+                투표 하러가기
+              </Button>
+            </div>
+          </Box>
         )}
       </MyVoteContainer>
       <Footer page="mypage" />

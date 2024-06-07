@@ -10,14 +10,8 @@ import { useNavigate } from "react-router-dom";
 import { getDatabase, ref, remove } from "firebase/database";
 import { getAuth } from "firebase/auth";
 import Swal from "sweetalert2";
+import routes from "@/routes";
 
-/**
- * @param {object} prop
- * @param {object} prop.data
- * @param {string} prop.route
- * @param {string} prop.titleKey
- * @returns {JSX.Element}
- */
 const MyVoteList = ({ data, route, titleKey }) => {
   const navigate = useNavigate();
   const [modalVisible, setModalVisible] = useState(false);
@@ -26,14 +20,12 @@ const MyVoteList = ({ data, route, titleKey }) => {
   const database = getDatabase();
 
   const clickModal = useCallback(() => {
-    navigate(route + titleKey);
     setModalVisible(true);
-  }, [navigate, route, titleKey]);
+  }, []);
 
   const closeModal = useCallback(() => {
-    navigate(route);
     setModalVisible(false);
-  }, [navigate, route]);
+  }, []);
 
   const handleDelete = useCallback(() => {
     Swal.fire({
@@ -97,7 +89,10 @@ const MyVoteList = ({ data, route, titleKey }) => {
           maskClosable={true}
           onClose={closeModal}
         >
-          <ModalLayout id={titleKey} />
+          <ModalLayout
+            id={titleKey}
+            disableVote={route === routes.myparticipation} // 특정 경로에서는 투표 비활성화
+          />
         </Modal>
       )}
     </div>

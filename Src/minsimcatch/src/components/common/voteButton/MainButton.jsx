@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { getDatabase, ref, runTransaction, set, get } from 'firebase/database';
 import useLogin from '@/hooks/useLogin';
 import Swal from 'sweetalert2';
@@ -19,22 +19,27 @@ const MainButton = ({
   participate,
   active,
   voteId,
-  disableVote,
+  disableVote,  // disableVote 플래그 추가
   isOwner,
-  onUpdate // 추가된 속성
+  onUpdate
 }) => {
   const { isLoginIn, uid } = useLogin();
   const [alert, setIsAlert] = useState(false);
   const db = getDatabase();
 
   const updateVote = (optionId) => {
+    if (disableVote) {
+      console.log('Voting is disabled.');
+      return;
+    }
+
     if (!uid) {
       console.log('User not logged in.');
       setIsAlert(true);
       Swal.fire('로그인이 필요합니다.');
       return;
     }
-
+  
     const userVoteRef = ref(db, `user_votes/${uid}/${voteId}`);
     get(userVoteRef).then((snapshot) => {
       const previousOptionId = snapshot.val();
@@ -42,27 +47,30 @@ const MainButton = ({
         Swal.fire('이미 이 옵션에 투표하셨습니다.');
         return;
       }
-
+  
       const adjustVotes = (id, increment) => {
+        if (id === undefined) return;
+
         const optionRef = ref(db, `surveys/${voteId}/options/${id}`);
         runTransaction(optionRef, (currentData) => {
           if (currentData) {
-            currentData.votes = (currentData.votes || 0) + increment;
+            const newVotes = (currentData.votes || 0) + increment;
+            currentData.votes = newVotes < 0 ? 0 : newVotes;
             return currentData;
           }
           return currentData;
         }).then(() => {
-          updatePercentages(voteId);  // After updating votes, recalculate percentages
+          updatePercentages(voteId);
         });
       };
-
+  
       adjustVotes(optionId, 1);
       if (previousOptionId) {
         adjustVotes(previousOptionId, -1);
       }
-
+  
       set(userVoteRef, optionId).then(() => {
-        if (onUpdate) onUpdate();  // Update 상태 호출
+        if (onUpdate) onUpdate();
       });
     });
   };
@@ -86,7 +94,8 @@ const MainButton = ({
     e.preventDefault();
 
     if (disableVote) {
-      return; // complete 페이지에서는 아무 작업도 하지 않음
+      Swal.fire('이 페이지에서 투표는 비활성화되어 있습니다.');
+      return;
     }
 
     if (!isLoginIn) {
@@ -101,7 +110,7 @@ const MainButton = ({
       return;
     }
 
-    updateVote(id); // Handle vote updating logic
+    updateVote(id);
   };
 
   return (
@@ -115,11 +124,15 @@ const MainButton = ({
             : '로그인 후 투표가 가능합니다.'}
         </Alert>
       )}
-      <ButtonContainer id={voteId} onClick={clickButton}>
+      <ButtonContainer
+        id={voteId}
+        onClick={clickButton}
+        disabled={disableVote} // 비활성화 플래그 추가
+      >
         {src && <Img src={src} server={true} />}
-        <MainButtonSt border={value === 100} choice={choiced}>
+        <MainButtonSt border={value === 100} choice={choiced} disabled={disableVote}>
           <BtnContents choice={participate && choiced}>{name}</BtnContents>
-          <progress max="100" value={value}></progress>
+          <progress max="100" value={value} disabled={disableVote}></progress>
         </MainButtonSt>
         {value !== undefined && (
           <PercentNumber value={value} number={number} choice={choiced} />
@@ -139,9 +152,9 @@ MainButton.propTypes = {
   participate: PropTypes.bool.isRequired,
   active: PropTypes.string.isRequired,
   voteId: PropTypes.string.isRequired,
-  disableVote: PropTypes.bool, // 추가된 속성
-  isOwner: PropTypes.bool.isRequired, // 추가된 속성
-  onUpdate: PropTypes.func // 추가된 속성
+  disableVote: PropTypes.bool.isRequired,
+  isOwner: PropTypes.bool.isRequired,
+  onUpdate: PropTypes.func
 };
 
 const ButtonContainer = styled.div`
@@ -152,6 +165,7 @@ const ButtonContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  cursor: ${props => (props.disabled ? 'not-allowed' : 'pointer')}; // 비활성화 시 커서 변경
 `;
 
 export default MainButton;

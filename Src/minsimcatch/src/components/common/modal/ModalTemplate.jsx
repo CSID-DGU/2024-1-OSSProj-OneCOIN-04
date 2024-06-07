@@ -11,12 +11,7 @@ import Modal from "./Modal";
 import ShareForm from "./ShareForm";
 import ChatForm from "./ChatForm";
 
-/**
- * @param {object} props
- * @param {object} props.detailData
- **/
-
-const ModalTemplate = ({ detailData }) => {
+const ModalTemplate = ({ detailData, disableVote }) => {
   const {
     totalCount,
     participate,
@@ -31,13 +26,6 @@ const ModalTemplate = ({ detailData }) => {
     userId,
     comments = []
   } = detailData;
-
-  useEffect(() => {
-    console.log('Detail data:', detailData); // 데이터 확인용
-    console.log('Comments:', comments); // 댓글 데이터 확인
-    console.log('ID:', id); // ID 확인
-    console.log('Total Count:', totalCount); // Total Count 확인
-  }, [detailData, comments, id, totalCount]);
 
   const [optionState, setOptionState] = useState(options);
   const [participateState, setParticipate] = useState(participate);
@@ -92,7 +80,7 @@ const ModalTemplate = ({ detailData }) => {
       <ModalMainContainer className="modal">
         <Container>
           <VoteHead
-            totalCount={totalCount} // totalCount 전달
+            totalCount={totalCount}
             endDate={endDate}
             what="modal"
             username={username}
@@ -110,7 +98,7 @@ const ModalTemplate = ({ detailData }) => {
             options={optionState}
             voteId={id}
             isLogIn={true}
-            disableVote={false}
+            disableVote={disableVote}
             onUpdate={changeVotes}
           />
 
@@ -149,6 +137,7 @@ const ModalTemplate = ({ detailData }) => {
 
 ModalTemplate.propTypes = {
   detailData: PropTypes.object.isRequired,
+  disableVote: PropTypes.bool, // 추가된 속성
 };
 
 const Container = styled.div`
