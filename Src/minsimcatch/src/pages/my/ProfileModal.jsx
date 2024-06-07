@@ -117,7 +117,7 @@ const nicknameCheck = () => {
   return (
     <div>
       <Img className="userImg">
-        <img src={`/image/${img}`} alt="사용자 프로" />
+        <img src={`/image/vv.png`} alt="사용자 프로" />
       </Img>
       {!input && (
         <ProfileButton onClick={handleMyInfo}>수정하기</ProfileButton>

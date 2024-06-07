@@ -21,7 +21,7 @@ const Chat = ({ data, onClick, isOwner }) => {
   return (
     <>
       <ChatStyled>
-        <Img src="profile.png" size="35px" />
+        <Img src="./image/vv.png" size="35px" />
         <div>
           <UserStyled>
             <NameStyled>{data.username}</NameStyled>
