@@ -13,7 +13,7 @@ const ChoiceOption = ({ id, data, inputOption, deleteOption }) => {
         <input
           value={data?.name}
           onChange={(e) => inputOption(id, e.target.value)}
-          placeholder={`선택지 ${id + 1}`}
+          placeholder={`선택지 ${id}`}
           className="nameInput"
           id={`nameInput-${id}`}
         />
@@ -37,8 +37,8 @@ const Container = styled.div`
   align-items: center;
   .xbutton {
     position: relative;
-    left: 65px;
-    top: 5px;
+    left: 70px;
+    top: 1px;
     cursor: pointer;
   }
   .xIcon:hover {
@@ -46,13 +46,19 @@ const Container = styled.div`
     border-radius: 10px;
   }
   .nameInput {
-    border: 1px solid #4f4f4f;
-    border-radius: 6px;
-    height: 33px;
-    width: 108px;
-    padding-left: 10px;
-    box-shadow: 0px 2px 2px rgba(126, 126, 126, 0.25);
-  }
+  border: 1px solid #4f4f4f;
+  border-radius: 6px;
+  height: 33px;
+  width: 108px;
+  padding-left: 10px;
+  box-shadow: 0px 2px 2px rgba(126, 126, 126, 0.25);
+  margin-top: -10px; /* 박스를 위로 올리기 */
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 `;
 
 export default ChoiceOption;
