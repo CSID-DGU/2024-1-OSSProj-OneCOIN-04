@@ -1,3 +1,4 @@
+// src/components/common/voteButton/VoteBottom.jsx
 import React, { useEffect, useState } from "react";
 import { getDatabase, ref, onValue } from "firebase/database";
 import Icon from "../Icon";
@@ -5,7 +6,7 @@ import styled from "styled-components";
 import { HiOutlineChatBubbleOvalLeft } from "react-icons/hi2";
 import { FaShare } from "react-icons/fa";
 import PropTypes from "prop-types";
-import ShareForm from "@/components/common/modal/ShareForm"; // ShareForm 컴포넌트 불러오기
+import ShareForm from "@/components/common/modal/ShareForm";
 
 /**
  * @param {object} props
@@ -14,10 +15,9 @@ import ShareForm from "@/components/common/modal/ShareForm"; // ShareForm 컴포
  * @param {boolean} props.modal - 공유 버튼 모달
  * @param {string} props.id - 투표 id
  */
-
 const VoteBottom = ({ onClick, onClickShare, id }) => {
   const [commentCount, setCommentCount] = useState(0);
-  const [modal, setModal] = useState(false); // modal 상태 추가
+  const [modal, setModal] = useState(false);
 
   useEffect(() => {
     const db = getDatabase();
@@ -26,7 +26,7 @@ const VoteBottom = ({ onClick, onClickShare, id }) => {
     const unsubscribe = onValue(commentsRef, (snapshot) => {
       const comments = snapshot.val();
       const count = comments ? Object.keys(comments).length : 0;
-      setCommentCount(count);
+      setCommentCount(count); // 댓글 수 설정
     });
 
     return () => unsubscribe();

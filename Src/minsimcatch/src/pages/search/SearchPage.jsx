@@ -33,7 +33,8 @@ const SearchPage = () => {
             id,
             ...survey,
             options: optionsArray,
-            totalCount
+            totalCount,
+            active: survey.active  // 설문 상태 추가
           };
         });
         setSurveys(surveysArray);
@@ -70,9 +71,14 @@ const SearchPage = () => {
       ) : (
         <>
           {filteredSurveys.length === 0 ? (
-            <NonePage what="research" query={query} />
+            <NonePage what="search" query={query} />
           ) : (
-            <HomeTemplate datas={filteredSurveys} />
+            <HomeTemplate
+              datas={filteredSurveys.map(survey => ({
+                ...survey,
+                disableVote: survey.active === "complete" // 투표 비활성화 플래그 추가
+              }))}
+            />
           )}
         </>
       )}

@@ -42,7 +42,7 @@ const Mypage = () => {
         <Profile
           userName={profile?.nickname}
           email={profile?.email}
-          src={"./vv.jpg"}
+          src={"./vv.png"} //이미지 추가수정삭제 구현해야함
         ></Profile>
         <MyPageUl
           votingNumber={profile?.participateVoteCount}

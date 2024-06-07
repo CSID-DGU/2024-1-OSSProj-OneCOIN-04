@@ -31,7 +31,7 @@ const HomeTemplate = ({ datas, error, modal }) => {
             what="home"
             modal={modal}
             onCommentClick={handleOpenModal}
-            disableVote={false}
+            disableVote={data.active === "complete"}  // 완료된 게시물에 대해 투표 비활성화
           />
         ))
       )}

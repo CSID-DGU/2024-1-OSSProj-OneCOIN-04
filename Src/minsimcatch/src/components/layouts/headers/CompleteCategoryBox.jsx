@@ -10,14 +10,13 @@ import styled from "styled-components";
 import { Palette } from "@/styles/Palette";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { sortList, contentList } from "./DropdownList";
+import PropTypes from "prop-types";
 
-export const CompleteCategoryBox = () => {
+export const CompleteCategoryBox = ({ onSortChange, onCategoryChange }) => {
   const [sort, setSort] = useRecoilState(completeSortState);
   const [sortName, setSortName] = useRecoilState(completeSortNameState);
   const [content, setContent] = useRecoilState(completeSegmentState);
-  const [contentName, setContentName] = useRecoilState(
-    completeSegmentNameState
-  );
+  const [contentName, setContentName] = useRecoilState(completeSegmentNameState);
 
   const [drops, setDrops] = useState({ sort: false, content: false });
 
@@ -32,16 +31,27 @@ export const CompleteCategoryBox = () => {
     }
   };
 
-  useEffect(() => {}, [sort, content]);
+  useEffect(() => {
+    // Initialize default values when the component mounts
+    setSort(sortList[0].value);
+    setSortName(sortList[0].category);
+    setContent(contentList[0].value);
+    setContentName(contentList[0].category);
+  }, []);
+
   const handleSort = (num) => {
-    setSort(sortList[num].value);
-    setSortName(sortList[num].category);
+    const selectedSort = sortList[num];
+    setSort(selectedSort.value);
+    setSortName(selectedSort.category);
+    onSortChange(selectedSort.value); // 부모 컴포넌트에 선택한 정렬 기준 전달
     toggleDropdown("sort");
   };
 
   const handleContent = (num) => {
-    setContent(contentList[num].value);
-    setContentName(contentList[num].category);
+    const selectedContent = contentList[num];
+    setContent(selectedContent.value);
+    setContentName(selectedContent.category);
+    onCategoryChange(selectedContent.value); // 부모 컴포넌트에 선택한 카테고리 전달
     toggleDropdown("content");
   };
 
@@ -85,11 +95,11 @@ export const CompleteCategoryBox = () => {
         </MainButton>
         {drops.sort ? (
           <Ul>
-            {sortList.map((item) => (
+            {sortList.map((item, index) => (
               <Li key={item.id} className="item">
                 <StyledButton className="sort-item">
                   <div
-                    onClick={() => handleSort(item.id)}
+                    onClick={() => handleSort(index)}
                     style={
                       item.value === sort
                         ? { color: Palette.font_blue, fontWeight: "bolder" }
@@ -112,11 +122,11 @@ export const CompleteCategoryBox = () => {
         </MainButton>
         {drops.content ? (
           <Ul className="content">
-            {contentList.map((item) => (
+            {contentList.map((item, index) => (
               <Li key={item.id} className="item">
                 <StyledButton className="content-item">
                   <div
-                    onClick={() => handleContent(item.id)}
+                    onClick={() => handleContent(index)}
                     style={
                       item.value === content
                         ? { color: Palette.font_blue, fontWeight: "bolder" }
@@ -133,6 +143,11 @@ export const CompleteCategoryBox = () => {
       </Category>
     </div>
   );
+};
+
+CompleteCategoryBox.propTypes = {
+  onSortChange: PropTypes.func.isRequired,
+  onCategoryChange: PropTypes.func.isRequired,
 };
 
 const Category = styled.div`
@@ -159,17 +174,18 @@ const MainButton = styled.button`
 
 const StyledButton = styled.button`
   display: flex;
+  justify-content: center;
   align-items: center;
   background-color: #fff;
   color: ${Palette.font_gray};
   padding: 5px;
-  width: 6.6rem;
+  width: 6rem; /* 버튼 너비를 10rem로 확대 */
   height: 32px;
   border-width: 0px;
   font-size: 15px;
   cursor: pointer;
   &.sort-item {
-    width: 4.2rem;
+    width: 6rem; /* 정렬 항목의 너비를 10rem로 확대 */
   }
   &:hover {
     background-color: ${Palette.percent_gray};
@@ -185,10 +201,10 @@ const Ul = styled.ul`
   border: 1px ${Palette.main_gray} solid;
   border-radius: 2px;
   margin: 0;
-  width: 4.2rem;
+  width: 6rem; /* 드롭다운 메뉴 너비를 10rem로 확대 */
   background-color: #fff;
   &.content {
-    width: 6.6rem;
+    width: 6rem; /* 카테고리 드롭다운 메뉴 너비를 10rem로 확대 */
   }
 `;
 
