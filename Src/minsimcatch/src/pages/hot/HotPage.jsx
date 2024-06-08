@@ -60,7 +60,7 @@ const HotPage = ({ modal }) => {
   console.log('Is user logged in:', isLoginIn, 'UID:', uid);  // 사용자 로그인 상태와 UID 출력
 
 // totalCount가 특정 값 이상인 설문지와 active가 complete가 아닌 설문지 필터링
-const popularSurveys = surveys.filter(survey => survey.totalCount >= 2 && survey.active !== "complete");
+const popularSurveys = surveys.filter(survey => survey.totalCount >= 5 && survey.active !== "complete");
 
 console.log('Filtered surveys:', popularSurveys);
 
