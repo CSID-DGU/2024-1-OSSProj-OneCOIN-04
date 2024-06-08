@@ -42,7 +42,7 @@
 <table>
   <tr>
     <td style="text-align: center;">
-      <img src="image/투표조사1.png" alt="투표조사" width="250" height="500">
+      <img src="image/투표조사1.png" alt="투표조사" width="290" height="500">
     </td>
     <td style="text-align: center;">
       <img src="image/투표조사3.png" alt="투표조사" width="300" height="500">
@@ -193,7 +193,7 @@
 
 1. Juno, [Recoil] Recoil 200% 활용하기, https://velog.io/@juno7803/Recoil-Recoil-200-%ED%99%9C%EC%9A%A9%ED%95%98%EA%B8%B0,2021년 4월
 2. 미상 , 국민투표, https://peoplevote.co.kr/community?
-3. 해리가 그리는 세상 ,유튜브 사진 올리기, 투표 업로드 방법. 커뮤니티 기능!, https://blog.naver.com/haery_kim/222047169754,2020년7월
+3. 해리가 그리는 세상 ,유튜브 사진 올리기, 투표 업로드 방법. 커뮤니티 기능!, https://blog.naver.com/haery_kim/222047169754, 2020년7월
 4. 푸사장, [인스타그램] 내 스토리 투표 기능 활용법, https://m.blog.naver.com/zxcvb93/221309741225, 2018년6월
  
 
