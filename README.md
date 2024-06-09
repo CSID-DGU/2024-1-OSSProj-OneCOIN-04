@@ -54,6 +54,15 @@
 
 ## 최종 결과물✅
 
+### 전체 화면
+<table>
+  <tr>
+    <td style="text-align: center;">
+      <p>로그인</p>
+      <img src="Doc/image/전체 화면.png" alt="로그인" width="230" height="450">
+    </td>
+  </tr>
+</table>
 ### 로그인 및 회원가입
 <table>
   <tr>
