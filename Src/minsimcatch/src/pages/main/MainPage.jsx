@@ -28,28 +28,31 @@ const MainPage = () => {
             (snapshot) => {
                 const data = snapshot.val();
                 if (data) {
-                    const surveysArray = Object.entries(data).map(([id, survey]) => {
-                        const optionsObject = survey.options || {};
-                        const optionsArray = Object.entries(optionsObject).map(
-                            ([optionId, optionDetails]) => ({
-                                id: optionId,
-                                ...optionDetails,
-                            })
-                        );
-                        const totalCount = optionsArray.reduce(
-                            (sum, option) => sum + (option.votes || 0),
-                            0
-                        );
-                        return {
-                            id,
-                            ...survey,
-                            options: optionsArray,
-                            totalCount,
-                            userId: survey.userId,
-                            commentsCount: survey.comments ? Object.keys(survey.comments).length : 0,
-                            timestamp: survey.timestamp,
-                        };
-                    });
+                    const surveysArray = Object.entries(data)
+                        .map(([id, survey]) => {
+                            const optionsObject = survey.options || {};
+                            const optionsArray = Object.entries(optionsObject).map(
+                                ([optionId, optionDetails]) => ({
+                                    id: optionId,
+                                    ...optionDetails,
+                                })
+                            );
+                            const totalCount = optionsArray.reduce(
+                                (sum, option) => sum + (option.votes || 0),
+                                0
+                            );
+                            return {
+                                id,
+                                ...survey,
+                                options: optionsArray,
+                                totalCount,
+                                userId: survey.userId,
+                                commentsCount: survey.comments ? Object.keys(survey.comments).length : 0,
+                                timestamp: survey.timestamp,
+                                active: survey.active, // active 상태를 가져옵니다.
+                            };
+                        })
+                        .filter(survey => survey.active !== "complete"); // complete 상태인 게시물을 제외합니다.
                     setSurveys(surveysArray);
                 } else {
                     setError("No surveys available.");
